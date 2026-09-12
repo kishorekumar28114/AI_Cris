@@ -1,22 +1,22 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import type { 
-  Incident, 
-  AgentStep, 
-  ResourceItem, 
-  RouteOption, 
-  HospitalItem, 
-  ResponsePlan, 
-  ActivityLogItem, 
-  NavigationTab 
+import type {
+  Incident,
+  AgentStep,
+  ResourceItem,
+  RouteOption,
+  HospitalItem,
+  ResponsePlan,
+  ActivityLogItem,
+  NavigationTab
 } from '../types/crisis';
-import { 
-  INITIAL_INCIDENTS, 
-  INITIAL_AGENTS, 
-  INITIAL_RESOURCES, 
-  INITIAL_ROUTES, 
-  INITIAL_HOSPITALS, 
-  INITIAL_RESPONSE_PLAN, 
-  INITIAL_ACTIVITY_LOG 
+import {
+  INITIAL_INCIDENTS,
+  INITIAL_AGENTS,
+  INITIAL_RESOURCES,
+  INITIAL_ROUTES,
+  INITIAL_HOSPITALS,
+  INITIAL_RESPONSE_PLAN,
+  INITIAL_ACTIVITY_LOG
 } from '../data/mockCrisisData';
 
 interface CrisisContextType {
@@ -109,7 +109,7 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const interval = setInterval(() => {
       if (currentIndex < totalAgents) {
         setCurrentSimulatingIndex(currentIndex);
-        
+
         // Mark current as running, previous as completed
         setAgents(prev => prev.map((agent, idx) => {
           if (idx === currentIndex) {
@@ -407,7 +407,7 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setCrisisNotification({
       visible: true,
       title: '🎯 Demo Incident INC-1024 Loaded',
-      message: 'Ready for faculty review presentation: Coimbatore Flash Flood scenario with full multi-agent telemetry.',
+      message: 'Coimbatore Flash Flood scenario with full multi-agent telemetry.',
       type: 'info',
     });
   }, [resetSimulation]);
