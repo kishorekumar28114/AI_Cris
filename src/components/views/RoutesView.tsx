@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useCrisis } from '../../context/CrisisContext';
 import { StylizedCrisisMap } from '../map/StylizedCrisisMap';
+import { CrisisOptionSelector } from '../common/CrisisOptionSelector';
 
 export const RoutesView: React.FC = () => {
   const { routes, selectedIncident } = useCrisis();
@@ -17,6 +18,11 @@ export const RoutesView: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* CRISIS SELECTION OPTIONS */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl">
+        <CrisisOptionSelector />
+      </div>
+
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl">
         <div>

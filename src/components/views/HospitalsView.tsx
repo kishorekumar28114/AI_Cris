@@ -7,12 +7,18 @@ import {
   HeartPulse
 } from 'lucide-react';
 import { useCrisis } from '../../context/CrisisContext';
+import { CrisisOptionSelector } from '../common/CrisisOptionSelector';
 
 export const HospitalsView: React.FC = () => {
-  const { hospitals } = useCrisis();
+  const { hospitals, selectedIncident } = useCrisis();
 
   return (
     <div className="space-y-6">
+      {/* CRISIS SELECTION OPTIONS */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl">
+        <CrisisOptionSelector />
+      </div>
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl">
         <div>
@@ -21,7 +27,7 @@ export const HospitalsView: React.FC = () => {
               HEALTHCARE TRIAGE ADVISORY
             </span>
             <span className="text-xs text-slate-400 font-mono">
-              Regional Trauma & ICU Capacity Engine
+              Regional Trauma & ICU Capacity Engine &bull; {selectedIncident.location} ({selectedIncident.id})
             </span>
           </div>
           <h2 className="text-xl md:text-2xl font-extrabold text-white mt-1">

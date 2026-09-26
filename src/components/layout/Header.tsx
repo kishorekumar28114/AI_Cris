@@ -3,17 +3,21 @@ import {
   Play, 
   RefreshCw, 
   ShieldAlert, 
-  Bell, 
   User, 
   Info,
   CheckCircle2,
   X,
-  Sparkles
+  Sparkles,
+  Layers,
+  Database
 } from 'lucide-react';
 import { useCrisis } from '../../context/CrisisContext';
 
 export const Header: React.FC = () => {
   const { 
+    incidents,
+    selectedIncident,
+    selectIncident,
     loadDemoIncident, 
     simulateCrisisUpdate, 
     isCrisisUpdateSimulated,
@@ -58,14 +62,14 @@ export const Header: React.FC = () => {
                 ? 'bg-purple-600/30 text-purple-300 border border-purple-500/40 cursor-not-allowed'
                 : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-purple-950/50 hover:shadow-purple-900/40'
             }`}
-            title="Sequentially executes all 7 specialized AI agents"
+            title={`Sequentially executes all 7 specialized AI agents for ${selectedIncident.id}`}
           >
             {isAnalyzing ? (
               <RefreshCw className="h-3.5 w-3.5 animate-spin text-purple-300" />
             ) : (
               <Sparkles className="h-3.5 w-3.5 text-purple-200" />
             )}
-            <span>{isAnalyzing ? 'Analyzing...' : 'Run AI Analysis'}</span>
+            <span>{isAnalyzing ? 'Analyzing...' : `Run AI (${selectedIncident.id})`}</span>
           </button>
 
           {/* Simulate Crisis Update Button */}
@@ -114,31 +118,67 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
+      {/* Secondary Fast Crisis Target Selector Bar */}
+      <div className="flex items-center justify-between px-6 py-1.5 bg-slate-950/80 border-t border-slate-800/60 text-xs font-mono overflow-x-auto gap-3">
+        <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 text-[10px] text-slate-400 uppercase tracking-wider font-semibold">
+            <Layers className="h-3 w-3 text-cyan-400" />
+            <span>Crisis Options:</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            {incidents.map((inc, i) => {
+              const isSelected = inc.id === selectedIncident.id;
+              return (
+                <button
+                  key={inc.id}
+                  onClick={() => selectIncident(inc.id)}
+                  disabled={isAnalyzing}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
+                    isSelected
+                      ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 font-bold shadow-sm shadow-cyan-950/30'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-slate-800/80'
+                  }`}
+                >
+                  <span className={`h-1.5 w-1.5 rounded-full ${isSelected ? 'bg-cyan-400 animate-pulse' : 'bg-slate-600'}`} />
+                  <span>Option {i + 1}: {inc.id}</span>
+                  <span className="text-[10px] opacity-75 hidden sm:inline">({inc.type})</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-3 text-[11px] text-slate-400 shrink-0">
+          <span className="inline-flex items-center gap-1 text-slate-400">
+            <Database className="h-3 w-3 text-emerald-400" />
+            Single Source: <code className="text-slate-300">crisesData.json</code>
+          </span>
+          <span className="text-slate-600">|</span>
+          <span>Target Sector: <strong className="text-white">{selectedIncident.location}</strong></span>
+          <span className="text-slate-600">|</span>
+          <span>Status: <strong className="text-cyan-400">{selectedIncident.status}</strong></span>
+        </div>
+      </div>
+
       {/* Reactive notification banner (when simulations or actions happen) */}
       {crisisNotification && crisisNotification.visible && (
         <div 
           className={`flex items-center justify-between px-6 py-2 border-t text-xs transition-all ${
             crisisNotification.type === 'critical'
-              ? 'bg-red-950/60 border-red-500/40 text-red-200'
+              ? 'bg-red-950/80 border-red-500/40 text-red-200'
               : crisisNotification.type === 'success'
-              ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-200'
-              : 'bg-cyan-950/60 border-cyan-500/40 text-cyan-200'
+              ? 'bg-emerald-950/80 border-emerald-500/40 text-emerald-200'
+              : 'bg-cyan-950/80 border-cyan-500/40 text-cyan-200'
           }`}
         >
           <div className="flex items-center gap-2">
-            {crisisNotification.type === 'critical' ? (
-              <ShieldAlert className="h-4 w-4 text-red-400 shrink-0" />
-            ) : crisisNotification.type === 'success' ? (
-              <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-            ) : (
-              <Bell className="h-4 w-4 text-cyan-400 shrink-0" />
-            )}
-            <span className="font-semibold">{crisisNotification.title}:</span>
-            <span className="text-slate-300">{crisisNotification.message}</span>
+            <CheckCircle2 className="h-4 w-4 shrink-0" />
+            <span className="font-bold">{crisisNotification.title}:</span>
+            <span>{crisisNotification.message}</span>
           </div>
           <button
             onClick={dismissCrisisNotification}
-            className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800/50"
+            className="p-1 hover:bg-white/10 rounded transition-colors"
           >
             <X className="h-3.5 w-3.5" />
           </button>

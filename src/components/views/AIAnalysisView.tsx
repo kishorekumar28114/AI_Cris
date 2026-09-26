@@ -14,9 +14,11 @@ import {
   RefreshCw,
   Gauge,
   UserCheck,
-  FileCheck2
+  FileCheck2,
+  Database
 } from 'lucide-react';
 import { useCrisis } from '../../context/CrisisContext';
+import { CrisisOptionSelector } from '../common/CrisisOptionSelector';
 
 export const AIAnalysisView: React.FC = () => {
   const { 
@@ -52,28 +54,111 @@ export const AIAnalysisView: React.FC = () => {
     }
   };
 
+  // Severity metrics calculation based on the selected incident data
+  const getSeverityScore = (id: string, severity: string) => {
+    switch (id) {
+      case 'INC-1025':
+        return 95;
+      case 'INC-1024':
+        return 92;
+      case 'INC-1023':
+        return 84;
+      case 'INC-1021':
+        return 81;
+      case 'INC-1022':
+        return 76;
+      default:
+        return severity === 'CRITICAL' ? 90 : severity === 'HIGH' ? 82 : 75;
+    }
+  };
+
+  const severityScore = getSeverityScore(selectedIncident.id, selectedIncident.severity);
+
+  // Dynamic risk factor breakdowns based on the selected crisis
+  const getRiskBreakdown = () => {
+    switch (selectedIncident.id) {
+      case 'INC-1023':
+        return {
+          factor1: { label: 'Trapped Casualties & Injuries', value: 86, text: 'HIGH (86%)' },
+          factor2: { label: 'Highway Infrastructure Impact', value: 82, text: 'HIGH (82%)' },
+          factor3: { label: 'Flammable Fuel Spill Hazard', value: 88, text: 'CRITICAL (88%)' },
+          factor4: { label: 'CCTV Telemetry Verification', value: 97, text: 'HIGH (97%)' },
+          factor5: { label: 'Immediate Golden Hour Urgency', value: 91, text: 'CRITICAL (91%)' },
+          explanation: `Incident is classified as HIGH priority (Score: ${severityScore}/100) because 14 casualties are reported with 3 pinned motorists requiring hydraulic extrication within the golden hour, accompanied by a 400-liter diesel fuel spill across both northbound lanes of NH-544.`
+        };
+      case 'INC-1022':
+        return {
+          factor1: { label: 'Worker Evacuation & Missing Staff', value: 72, text: 'MEDIUM (72%)' },
+          factor2: { label: 'Industrial Complex Structural Risk', value: 78, text: 'MEDIUM (78%)' },
+          factor3: { label: 'Chemical Solvent Combustion (640°C)', value: 84, text: 'HIGH (84%)' },
+          factor4: { label: 'IoT Thermal Telemetry Authenticity', value: 98, text: 'HIGH (98%)' },
+          factor5: { label: 'Toxic Plume Dispersion Urgency', value: 76, text: 'MEDIUM (76%)' },
+          explanation: `Incident is classified as MEDIUM priority (Score: ${severityScore}/100) because Class-B flammable solvents in Bay 4 are burning at 640°C core temperature, with an 18 km/h wind pushing toxic smoke plumes toward neighboring textile facilities requiring foam suppression.`
+        };
+      case 'INC-1021':
+        return {
+          factor1: { label: 'Endangered Riverside Homesteads', value: 80, text: 'HIGH (80%)' },
+          factor2: { label: 'Embankment Earthen Levee Integrity', value: 85, text: 'HIGH (85%)' },
+          factor3: { label: 'Hydraulic Runoff & Dam Outflow', value: 83, text: 'HIGH (83%)' },
+          factor4: { label: 'Ultrasonic Gauge Telemetry Proof', value: 99, text: 'HIGH (99%)' },
+          factor5: { label: 'Levee Breach Prevention Urgency', value: 88, text: 'CRITICAL (88%)' },
+          explanation: `Incident is classified as HIGH priority (Score: ${severityScore}/100) because river waters have reached 92% capacity (within 0.35m of the levee crest), threatening 12 rural dwellings with breach inundation within a 45-minute critical action window.`
+        };
+      case 'INC-1025':
+        return {
+          factor1: { label: 'Mass Casualties (22 injured)', value: 96, text: 'CRITICAL (96%)' },
+          factor2: { label: 'Expressway Total Severance', value: 94, text: 'CRITICAL (94%)' },
+          factor3: { label: 'Tanker Rupture & Torrential Rain', value: 91, text: 'CRITICAL (91%)' },
+          factor4: { label: 'Toll Sensor & Dashcam Evidence', value: 99, text: 'HIGH (99%)' },
+          factor5: { label: 'Mass Casualty Triage Urgency', value: 98, text: 'CRITICAL (98%)' },
+          explanation: `Incident is classified as CRITICAL (Score: ${severityScore}/100) due to 22 mass casualties, overturned fuel tanker on the interstate corridor, and extreme hydroplaning hazards mandating adaptive resource reallocation.`
+        };
+      case 'INC-1024':
+      default:
+        return {
+          factor1: { label: 'Affected Population (120+)', value: 94, text: 'HIGH (94%)' },
+          factor2: { label: 'Infrastructure Inundation', value: 88, text: 'HIGH (88%)' },
+          factor3: { label: 'Weather Risk (48mm/hr Rain)', value: 92, text: 'HIGH (92%)' },
+          factor4: { label: 'Evidence Confidence', value: 98, text: 'HIGH (98%)' },
+          factor5: { label: 'Immediate Evacuation Urgency', value: 96, text: 'CRITICAL (96%)' },
+          explanation: `Incident is classified as CRITICAL (Score: ${severityScore}/100) because multiple factors indicate immediate response requirements: 120+ civilians exposed to rapid flash flood waters, critical power substation near inundation threshold, and meteorological radar forecasting 48mm/hr rainfall persistence.`
+        };
+    }
+  };
+
+  const riskData = getRiskBreakdown();
+
   return (
     <div className="space-y-6">
+      {/* CRISIS SELECTION OPTIONS BAR */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl">
+        <CrisisOptionSelector />
+      </div>
+
       {/* Title & Orchestrator Header Card */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-6 shadow-xl relative overflow-hidden">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
                 MULTI-AGENT COLLABORATION PIPELINE
               </span>
-              <span className="text-xs text-slate-400 font-mono">
-                Target: {selectedIncident.id} ({selectedIncident.location})
+              <span className="text-xs text-slate-300 font-mono bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">
+                Active Target: <strong className="text-cyan-400">{selectedIncident.id}</strong> — {selectedIncident.title} ({selectedIncident.location})
+              </span>
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">
+                <Database className="h-3 w-3" />
+                Data Source: crisesData.json
               </span>
             </div>
-            <h2 className="text-2xl font-extrabold text-white mt-1 flex items-center gap-2">
+            <h2 className="text-2xl font-extrabold text-white mt-1.5 flex items-center gap-2">
               AI Multi-Agent Analysis
               <span className="text-xs font-mono font-normal px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
                 Prototype Simulation
               </span>
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-              Specialized agents collaboratively analyse the incident, evaluate multi-modal evidence, calculate real-time risks, and formulate unified operational advice.
+              7 specialized agents collaboratively analyze <span className="text-white font-semibold">{selectedIncident.id} ({selectedIncident.type})</span>, evaluate multi-modal evidence, calculate real-time risks, and formulate unified operational advice.
             </p>
           </div>
 
@@ -96,7 +181,7 @@ export const AIAnalysisView: React.FC = () => {
               ) : (
                 <>
                   <Sparkles className="h-4 w-4 text-purple-200" />
-                  <span>Run AI Analysis Pipeline</span>
+                  <span>Run AI Pipeline for {selectedIncident.id}</span>
                 </>
               )}
             </button>
@@ -107,7 +192,7 @@ export const AIAnalysisView: React.FC = () => {
         {isAnalyzing && (
           <div className="mt-4 pt-4 border-t border-slate-800">
             <div className="flex items-center justify-between text-xs font-mono text-purple-300 mb-1.5">
-              <span>Executing Specialized Agent Sequence...</span>
+              <span>Executing Specialized Agent Sequence for {selectedIncident.id}...</span>
               <span>{Math.round(((currentSimulatingIndex + 1) / agents.length) * 100)}%</span>
             </div>
             <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
@@ -124,7 +209,7 @@ export const AIAnalysisView: React.FC = () => {
       <div className="flex items-center justify-between p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono overflow-x-auto gap-3">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 shrink-0">
           <AlertTriangle className="h-3.5 w-3.5 text-red-400" />
-          <span>Incident Input: {selectedIncident.id}</span>
+          <span>Incident Input: {selectedIncident.id} ({selectedIncident.type})</span>
         </div>
         <ArrowDown className="h-4 w-4 text-slate-600 shrink-0 -rotate-90 md:rotate-0" />
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-950/60 border border-purple-500/40 text-purple-200 shrink-0 font-bold">
@@ -150,7 +235,7 @@ export const AIAnalysisView: React.FC = () => {
           <div className="flex items-center justify-between mb-1">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono flex items-center gap-2">
               <Cpu className="h-4 w-4 text-purple-400" />
-              Collaborative Agent Network
+              Collaborative Agent Network &bull; {selectedIncident.id}
             </h3>
             <span className="text-[11px] text-slate-400 font-mono">
               {analysisCompleted ? 'All Agents Synchronized' : 'Sequential Pipeline'}
@@ -210,7 +295,7 @@ export const AIAnalysisView: React.FC = () => {
                       isCurrentlyRunning
                         ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 animate-pulse'
                         : agent.status === 'critical'
-                        ? 'bg-red-500/15 text-red-400 border border-red-500/30'
+                        ? 'bg-red-500/15 text-red-400 border-red-500/30'
                         : agent.status === 'verified'
                         ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
                         : 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30'
@@ -257,18 +342,32 @@ export const AIAnalysisView: React.FC = () => {
         {/* RIGHT: AI SEVERITY ASSESSMENT ENGINE (5 Columns) */}
         <div className="lg:col-span-5 space-y-6">
           {/* Main Severity Assessment Panel */}
-          <div className="rounded-2xl border border-red-500/30 bg-slate-900/90 p-5 shadow-2xl space-y-5">
+          <div className={`rounded-2xl border p-5 shadow-2xl space-y-5 ${
+            selectedIncident.severity === 'CRITICAL'
+              ? 'border-red-500/40 bg-slate-900/90'
+              : selectedIncident.severity === 'HIGH'
+              ? 'border-amber-500/40 bg-slate-900/90'
+              : 'border-yellow-500/40 bg-slate-900/90'
+          }`}>
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div>
-                <span className="text-[10px] font-mono text-red-400 font-bold uppercase tracking-wider">
-                  CLASSIFICATION ENGINE
+                <span className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
+                  selectedIncident.severity === 'CRITICAL' ? 'text-red-400' : selectedIncident.severity === 'HIGH' ? 'text-amber-400' : 'text-yellow-400'
+                }`}>
+                  CLASSIFICATION ENGINE &bull; {selectedIncident.id}
                 </span>
                 <h3 className="text-base font-extrabold text-white">
                   AI Severity Assessment
                 </h3>
               </div>
-              <span className="px-2.5 py-1 rounded bg-red-500/20 text-red-300 border border-red-500/40 text-xs font-mono font-bold">
-                CRITICAL PRIORITY
+              <span className={`px-2.5 py-1 rounded text-xs font-mono font-bold border ${
+                selectedIncident.severity === 'CRITICAL'
+                  ? 'bg-red-500/20 text-red-300 border-red-500/40'
+                  : selectedIncident.severity === 'HIGH'
+                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                  : 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40'
+              }`}>
+                {selectedIncident.severity} PRIORITY
               </span>
             </div>
 
@@ -278,10 +377,14 @@ export const AIAnalysisView: React.FC = () => {
                 Composite Severity Score
               </span>
               <div className="mt-1 flex items-baseline justify-center gap-1 font-mono">
-                <span className="text-5xl font-black text-red-500">92</span>
+                <span className={`text-5xl font-black ${
+                  severityScore >= 90 ? 'text-red-500' : severityScore >= 80 ? 'text-amber-400' : 'text-yellow-400'
+                }`}>
+                  {severityScore}
+                </span>
                 <span className="text-xl text-slate-400 font-bold">/ 100</span>
               </div>
-              <p className="text-[11px] text-red-300/80 mt-1 font-mono">
+              <p className="text-[11px] text-slate-400 mt-1 font-mono">
                 Threshold: &gt; 80 triggers automated human-coordinator alarm
               </p>
             </div>
@@ -292,70 +395,70 @@ export const AIAnalysisView: React.FC = () => {
                 Risk Factor Analysis:
               </span>
 
-              {/* Factor 1: Affected Population */}
+              {/* Factor 1 */}
               <div>
                 <div className="flex justify-between text-slate-300 mb-1 font-mono">
-                  <span>Affected Population</span>
-                  <span className="text-red-400 font-bold">HIGH (94%)</span>
+                  <span>{riskData.factor1.label}</span>
+                  <span className="text-red-400 font-bold">{riskData.factor1.text}</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-red-500 w-[94%]" />
+                  <div className="h-full bg-red-500 transition-all duration-500" style={{ width: `${riskData.factor1.value}%` }} />
                 </div>
               </div>
 
-              {/* Factor 2: Infrastructure Damage */}
+              {/* Factor 2 */}
               <div>
                 <div className="flex justify-between text-slate-300 mb-1 font-mono">
-                  <span>Infrastructure Damage</span>
-                  <span className="text-orange-400 font-bold">HIGH (88%)</span>
+                  <span>{riskData.factor2.label}</span>
+                  <span className="text-orange-400 font-bold">{riskData.factor2.text}</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-orange-500 w-[88%]" />
+                  <div className="h-full bg-orange-500 transition-all duration-500" style={{ width: `${riskData.factor2.value}%` }} />
                 </div>
               </div>
 
-              {/* Factor 3: Weather Risk */}
+              {/* Factor 3 */}
               <div>
                 <div className="flex justify-between text-slate-300 mb-1 font-mono">
-                  <span>Weather Risk (Rainfall)</span>
-                  <span className="text-red-400 font-bold">HIGH (92%)</span>
+                  <span>{riskData.factor3.label}</span>
+                  <span className="text-amber-400 font-bold">{riskData.factor3.text}</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-red-500 w-[92%]" />
+                  <div className="h-full bg-amber-500 transition-all duration-500" style={{ width: `${riskData.factor3.value}%` }} />
                 </div>
               </div>
 
-              {/* Factor 4: Evidence Confidence */}
+              {/* Factor 4 */}
               <div>
                 <div className="flex justify-between text-slate-300 mb-1 font-mono">
-                  <span>Evidence Confidence</span>
-                  <span className="text-emerald-400 font-bold">HIGH (98%)</span>
+                  <span>{riskData.factor4.label}</span>
+                  <span className="text-emerald-400 font-bold">{riskData.factor4.text}</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-emerald-500 w-[98%]" />
+                  <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: `${riskData.factor4.value}%` }} />
                 </div>
               </div>
 
-              {/* Factor 5: Urgency */}
+              {/* Factor 5 */}
               <div>
                 <div className="flex justify-between text-slate-300 mb-1 font-mono">
-                  <span>Immediate Urgency</span>
-                  <span className="text-red-400 font-bold">CRITICAL (96%)</span>
+                  <span>{riskData.factor5.label}</span>
+                  <span className="text-cyan-400 font-bold">{riskData.factor5.text}</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-red-500 w-[96%]" />
+                  <div className="h-full bg-cyan-500 transition-all duration-500" style={{ width: `${riskData.factor5.value}%` }} />
                 </div>
               </div>
             </div>
 
             {/* AI Explanation Box */}
-            <div className="p-3.5 rounded-xl bg-red-950/30 border border-red-500/20 text-xs">
-              <span className="font-bold text-red-300 flex items-center gap-1.5 mb-1">
-                <AlertTriangle className="h-3.5 w-3.5 text-red-400" />
-                AI Inference Explanation
+            <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+              <span className="font-bold text-slate-200 flex items-center gap-1.5 mb-1 font-mono">
+                <AlertTriangle className="h-3.5 w-3.5 text-cyan-400" />
+                AI Inference Explanation ({selectedIncident.id})
               </span>
-              <p className="text-slate-300 leading-relaxed text-[11px]">
-                "The incident is classified as <strong className="text-red-400">CRITICAL</strong> because multiple factors indicate immediate response requirements: 120+ civilians exposed to rapid flash flood waters, critical power substation near inundation threshold, and meteorological radar forecasting 48mm/hr rainfall persistence."
+              <p className="text-slate-300 leading-relaxed text-[11px] font-sans">
+                {riskData.explanation}
               </p>
             </div>
 
@@ -364,7 +467,7 @@ export const AIAnalysisView: React.FC = () => {
               onClick={() => setActiveTab('response-plans')}
               className="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition-all shadow-md shadow-cyan-950/50 flex items-center justify-center gap-2"
             >
-              <span>Review Generated AI Response Plan</span>
+              <span>Review Generated AI Response Plan ({selectedIncident.id})</span>
               <ShieldCheck className="h-4 w-4" />
             </button>
           </div>

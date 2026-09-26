@@ -75,20 +75,24 @@ export const IncidentDetailsView: React.FC = () => {
           </div>
         </div>
 
-        {/* Quick Incident Switcher (Tabs) */}
-        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-800">
-          <span className="text-[11px] font-mono text-slate-400 self-center mr-1">Switch Incident:</span>
-          {incidents.map(inc => (
+        {/* Quick Crisis Option Switcher */}
+        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-800 items-center">
+          <span className="text-[11px] font-mono text-cyan-400 font-bold self-center mr-1 uppercase tracking-wider">
+            Crisis Option:
+          </span>
+          {incidents.map((inc, idx) => (
             <button
               key={inc.id}
               onClick={() => selectIncident(inc.id)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
                 selectedIncident.id === inc.id
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold'
+                  ? 'bg-cyan-500/20 text-cyan-200 border border-cyan-500/50 font-bold shadow-sm shadow-cyan-950/40 ring-1 ring-cyan-500/30'
                   : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-700/60'
               }`}
             >
-              {inc.id} ({inc.type} - {inc.location})
+              <span className={`h-1.5 w-1.5 rounded-full ${selectedIncident.id === inc.id ? 'bg-cyan-400 animate-pulse' : 'bg-slate-600'}`} />
+              <span>Option {idx + 1}: {inc.id}</span>
+              <span className="text-[10px] text-slate-400">({inc.type} &bull; {inc.location})</span>
             </button>
           ))}
         </div>

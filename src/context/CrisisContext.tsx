@@ -16,7 +16,8 @@ import {
   INITIAL_ROUTES,
   INITIAL_HOSPITALS,
   INITIAL_RESPONSE_PLAN,
-  INITIAL_ACTIVITY_LOG
+  INITIAL_ACTIVITY_LOG,
+  getCrisisDataById
 } from '../data/mockCrisisData';
 
 interface CrisisContextType {
@@ -24,7 +25,9 @@ interface CrisisContextType {
   setActiveTab: (tab: NavigationTab) => void;
   incidents: Incident[];
   selectedIncident: Incident;
-  selectIncident: (id: string) => void;
+  selectIncident: (id: string, targetTab?: NavigationTab) => void;
+  incidentsSubView: 'details' | 'list';
+  setIncidentsSubView: (view: 'details' | 'list') => void;
   agents: AgentStep[];
   isAnalyzing: boolean;
   currentSimulatingIndex: number;
@@ -58,6 +61,7 @@ const CrisisContext = createContext<CrisisContextType | undefined>(undefined);
 
 export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [activeTab, setActiveTab] = useState<NavigationTab>('dashboard');
+  const [incidentsSubView, setIncidentsSubView] = useState<'details' | 'list'>('details');
   const [incidents, setIncidents] = useState<Incident[]>(INITIAL_INCIDENTS);
   const [selectedIncidentId, setSelectedIncidentId] = useState<string>('INC-1024');
   const [agents, setAgents] = useState<AgentStep[]>(INITIAL_AGENTS);
@@ -65,8 +69,8 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [currentSimulatingIndex, setCurrentSimulatingIndex] = useState<number>(-1);
   const [analysisCompleted, setAnalysisCompleted] = useState<boolean>(true);
   const [resources, setResources] = useState<ResourceItem[]>(INITIAL_RESOURCES);
-  const [routes] = useState<RouteOption[]>(INITIAL_ROUTES);
-  const [hospitals] = useState<HospitalItem[]>(INITIAL_HOSPITALS);
+  const [routes, setRoutes] = useState<RouteOption[]>(INITIAL_ROUTES);
+  const [hospitals, setHospitals] = useState<HospitalItem[]>(INITIAL_HOSPITALS);
   const [responsePlan, setResponsePlan] = useState<ResponsePlan>(INITIAL_RESPONSE_PLAN);
   const [activityLogs, setActivityLogs] = useState<ActivityLogItem[]>(INITIAL_ACTIVITY_LOG);
   const [isCrisisUpdateSimulated, setIsCrisisUpdateSimulated] = useState<boolean>(false);
@@ -80,31 +84,73 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const selectedIncident = incidents.find(inc => inc.id === selectedIncidentId) || incidents[0];
 
-  const selectIncident = useCallback((id: string) => {
+  // Retrieve needed data for the selected crisis from the single JSON file
+  const selectIncident = useCallback((id: string, targetTab?: NavigationTab) => {
     setSelectedIncidentId(id);
-    setActiveTab('ai-analysis');
-  }, []);
+    const dataset = getCrisisDataById(id);
+
+    setAgents(dataset.agents);
+    setResponsePlan(dataset.responsePlan);
+    setResources(dataset.resources);
+    setRoutes(dataset.routes);
+    setHospitals(dataset.hospitals);
+    
+    // Merge logs to preserve any user actions while prioritizing the selected crisis telemetry
+    setActivityLogs(prev => {
+      const otherLogs = prev.filter(l => l.incidentId !== id);
+      return [...dataset.activityLogs, ...otherLogs];
+    });
+
+    setIsAnalyzing(false);
+    setCurrentSimulatingIndex(-1);
+    setAnalysisCompleted(true);
+
+    // Determine target navigation:
+    // When clicking a crisis from Dashboard, navigate to 'incidents' details page!
+    if (targetTab === 'incidents') {
+      setIncidentsSubView('details');
+      setActiveTab('incidents');
+    } else if (targetTab) {
+      setActiveTab(targetTab);
+    } else {
+      if (activeTab === 'dashboard') {
+        setIncidentsSubView('details');
+        setActiveTab('incidents');
+      }
+      // If already on another tab (e.g. ai-analysis, resources, hospitals), stay on that tab!
+    }
+
+    setCrisisNotification({
+      visible: true,
+      title: `Loaded Incident: ${dataset.incident.id}`,
+      message: `Retrieved complete multi-agent pipeline and response data for ${dataset.incident.title} (${dataset.incident.location}) from Crisis JSON Registry.`,
+      type: 'info',
+    });
+  }, [activeTab]);
 
   const dismissCrisisNotification = useCallback(() => {
     setCrisisNotification(null);
   }, []);
 
-  // Sequential AI Multi-Agent execution simulation
+  // Sequential AI Multi-Agent execution simulation for the selected incident
   const runAiAnalysis = useCallback(() => {
     if (isAnalyzing) return;
     setIsAnalyzing(true);
     setAnalysisCompleted(false);
     setCurrentSimulatingIndex(0);
 
-    // Reset agents to idle
-    setAgents(prev => prev.map(a => ({
+    const targetDataset = getCrisisDataById(selectedIncidentId);
+    const targetAgents = targetDataset.agents;
+
+    // Reset agents to queued
+    setAgents(targetAgents.map(a => ({
       ...a,
       status: 'idle',
       badgeText: 'Queued',
     })));
 
     let currentIndex = 0;
-    const totalAgents = INITIAL_AGENTS.length;
+    const totalAgents = targetAgents.length;
 
     const interval = setInterval(() => {
       if (currentIndex < totalAgents) {
@@ -121,8 +167,8 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           } else if (idx < currentIndex) {
             return {
               ...agent,
-              status: INITIAL_AGENTS[idx].status,
-              badgeText: INITIAL_AGENTS[idx].badgeText,
+              status: targetAgents[idx].status,
+              badgeText: targetAgents[idx].badgeText,
             };
           }
           return agent;
@@ -134,7 +180,7 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setCurrentSimulatingIndex(-1);
         setIsAnalyzing(false);
         setAnalysisCompleted(true);
-        setAgents(INITIAL_AGENTS);
+        setAgents(targetAgents);
 
         // Add to activity log
         const newLog: ActivityLogItem = {
@@ -144,16 +190,16 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           incidentId: selectedIncidentId,
           category: 'AI_AGENT',
           agentName: 'AI / API Orchestrator',
-          title: 'Sequential Multi-Agent Analysis Completed',
-          description: 'All 7 specialized AI agents executed and validated. Actionable response recommendations compiled.',
-          severity: 'CRITICAL',
+          title: `Multi-Agent Analysis Executed: ${selectedIncidentId}`,
+          description: `All 7 specialized AI agents executed and validated for ${targetDataset.incident.title}. Actionable response recommendations compiled.`,
+          severity: targetDataset.incident.severity,
         };
         setActivityLogs(prev => [newLog, ...prev]);
 
         setCrisisNotification({
           visible: true,
-          title: '✓ AI Multi-Agent Analysis Complete',
-          message: 'All 7 specialized agents collaborated and compiled the recommended response plan for INC-1024.',
+          title: `✓ AI Multi-Agent Analysis Complete (${selectedIncidentId})`,
+          message: `All 7 specialized agents collaborated and compiled the recommended response plan for ${targetDataset.incident.title}.`,
           type: 'success',
         });
       }
@@ -184,12 +230,12 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         category: 'HUMAN_APPROVAL',
         agentName: 'Emergency Coordinator',
         title: `Resource ${targetRes.callsign} Status Updated`,
-        description: `${targetRes.name} marked as ${isNowAssigned ? 'Assigned' : 'Available'} for field operations.`,
+        description: `${targetRes.name} marked as ${isNowAssigned ? 'Assigned' : 'Available'} for field operations (${selectedIncident.id}).`,
         severity: 'INFO',
       };
       setActivityLogs(prev => [newLog, ...prev]);
     }
-  }, [resources, selectedIncidentId]);
+  }, [resources, selectedIncidentId, selectedIncident.id]);
 
   // Human-in-the-loop Approvals
   const approvePlan = useCallback(() => {
@@ -201,7 +247,7 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }));
 
     setIncidents(prev => prev.map(inc => {
-      if (inc.id === 'INC-1024') {
+      if (inc.id === selectedIncidentId) {
         return { ...inc, status: 'Resources Assigned' };
       }
       return inc;
@@ -211,22 +257,22 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       id: `act-app-${Date.now()}`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
       timeAgo: 'Just now',
-      incidentId: 'INC-1024',
+      incidentId: selectedIncidentId,
       category: 'HUMAN_APPROVAL',
       agentName: 'Emergency Coordinator',
-      title: 'AI Response Plan Approved by Human Coordinator',
-      description: 'Authorized dispatch of Rescue Unit R-12, Paramedic A-04, and hospital intake at Kovai Medical Center.',
-      severity: 'CRITICAL',
+      title: `AI Response Plan Approved for ${selectedIncidentId}`,
+      description: `Authorized dispatch and healthcare intake protocols for ${selectedIncident.title}.`,
+      severity: selectedIncident.severity,
     };
     setActivityLogs(prev => [newLog, ...prev]);
 
     setCrisisNotification({
       visible: true,
-      title: '✓ Plan Approved by Emergency Coordinator',
-      message: 'Status updated: APPROVED BY EMERGENCY COORDINATOR. Authorized for field coordination dispatch.',
+      title: `✓ Plan Approved by Coordinator (${selectedIncidentId})`,
+      message: `Status updated: APPROVED BY EMERGENCY COORDINATOR for ${selectedIncident.title}.`,
       type: 'success',
     });
-  }, []);
+  }, [selectedIncidentId, selectedIncident.title, selectedIncident.severity]);
 
   const modifyPlan = useCallback((notes: string) => {
     setResponsePlan(prev => ({
@@ -241,22 +287,22 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       id: `act-mod-${Date.now()}`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
       timeAgo: 'Just now',
-      incidentId: 'INC-1024',
+      incidentId: selectedIncidentId,
       category: 'HUMAN_APPROVAL',
       agentName: 'Emergency Coordinator',
-      title: 'AI Response Plan Modified by Human Coordinator',
-      description: `Coordinator adjustments applied: "${notes}"`,
+      title: `Response Plan Modified for ${selectedIncidentId}`,
+      description: `Coordinator adjustments applied to ${selectedIncident.title}: "${notes}"`,
       severity: 'HIGH',
     };
     setActivityLogs(prev => [newLog, ...prev]);
 
     setCrisisNotification({
       visible: true,
-      title: '✎ Plan Modified & Approved with Changes',
-      message: 'Human adjustments logged and appended to operations manifest.',
+      title: `✎ Plan Modified & Approved (${selectedIncidentId})`,
+      message: `Human coordinator adjustments logged for ${selectedIncident.title}.`,
       type: 'info',
     });
-  }, []);
+  }, [selectedIncidentId, selectedIncident.title]);
 
   const rejectPlan = useCallback((reason: string) => {
     setResponsePlan(prev => ({
@@ -271,10 +317,10 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       id: `act-rej-${Date.now()}`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
       timeAgo: 'Just now',
-      incidentId: 'INC-1024',
+      incidentId: selectedIncidentId,
       category: 'HUMAN_APPROVAL',
       agentName: 'Emergency Coordinator',
-      title: 'AI Response Plan Rejected by Human Coordinator',
+      title: `Response Plan Rejected for ${selectedIncidentId}`,
       description: `Plan rejected by command coordinator: ${reason}`,
       severity: 'HIGH',
     };
@@ -282,32 +328,17 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     setCrisisNotification({
       visible: true,
-      title: '✕ Response Plan Rejected',
+      title: `✕ Response Plan Rejected (${selectedIncidentId})`,
       message: 'Recommendation dismissed. Incident returned to manual triage coordination.',
       type: 'critical',
     });
-  }, []);
+  }, [selectedIncidentId]);
 
   // Dynamic Crisis Simulation: INC-1025 triggers re-evaluation & dynamic reassignment
   const simulateCrisisUpdate = useCallback(() => {
     setIsCrisisUpdateSimulated(true);
-
-    const newIncident: Incident = {
-      id: 'INC-1025',
-      title: 'Severe Multi-Vehicle Pileup on Coimbatore Highway',
-      type: 'Road Accident',
-      location: 'Coimbatore Highway (km 14)',
-      severity: 'CRITICAL',
-      status: 'Awaiting Approval',
-      reportedTime: '08:48 AM',
-      timeAgo: 'Just now',
-      affectedPeople: '22 casualties & trapped vehicles',
-      urgency: 'Critical',
-      infrastructureImpact: 'High',
-      weatherCondition: 'Torrential downpour & poor visibility',
-      evidenceSummary: 'Highway patrol dashcam & emergency toll plaza sensor SOS.',
-      coordinates: { x: 610, y: 190 },
-    };
+    const dataset1025 = getCrisisDataById('INC-1025');
+    const newIncident: Incident = dataset1025.incident;
 
     // Update incidents list: add INC-1025, change INC-1022 priority from HIGH/MEDIUM to LOW/MEDIUM
     setIncidents(prev => {
@@ -325,63 +356,20 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return exists ? updatedExisting : [newIncident, ...updatedExisting];
     });
 
-    // Reassign Rescue Team R-08 from INC-1022 to INC-1025
-    setResources(prev => prev.map(res => {
-      if (res.callsign === 'R-08') {
-        return {
-          ...res,
-          assignedToIncidentId: 'INC-1025',
-          assignedIncidentName: 'INC-1025 Highway Crash (Coimbatore)',
-          status: 'Assigned',
-          recommendation: 'ASSIGN',
-        };
-      }
-      return res;
-    }));
+    // Auto-switch to newly triggered crisis INC-1025
+    setSelectedIncidentId('INC-1025');
+    setAgents(dataset1025.agents);
+    setResponsePlan(dataset1025.responsePlan);
+    setResources(dataset1025.resources);
+    setRoutes(dataset1025.routes);
+    setHospitals(dataset1025.hospitals);
 
-    // Add activity log entries showing multi-agent re-evaluation
-    const revalLogs: ActivityLogItem[] = [
-      {
-        id: `act-reassign-${Date.now()}-1`,
-        timestamp: '08:48:30 AM',
-        timeAgo: 'Just now',
-        incidentId: 'INC-1025',
-        category: 'CRISIS_ALERT',
-        agentName: 'AI / API Orchestrator',
-        title: '⚠ DYNAMIC RESOURCE REASSIGNMENT TRIGGERED',
-        description: 'Rescue Team R-08 dynamically reassigned from INC-1022 (Fire, downgraded to LOW) to new CRITICAL incident INC-1025.',
-        severity: 'CRITICAL',
-      },
-      {
-        id: `act-reassign-${Date.now()}-2`,
-        timestamp: '08:48:15 AM',
-        timeAgo: 'Just now',
-        incidentId: 'INC-1025',
-        category: 'AI_AGENT',
-        agentName: 'Severity Assessment Agent',
-        title: 'Dynamic Priority Recalculation',
-        description: 'INC-1025 classified as CRITICAL (95/100). INC-1022 containment confirmed -> priority downgraded to LOW.',
-        severity: 'HIGH',
-      },
-      {
-        id: `act-reassign-${Date.now()}-3`,
-        timestamp: '08:48:02 AM',
-        timeAgo: 'Just now',
-        incidentId: 'INC-1025',
-        category: 'AI_AGENT',
-        agentName: 'Resource Coordination Agent',
-        title: 'Adaptive Reallocation Executed',
-        description: 'Resource contention resolved via priority matrix: transferred heavy extrication unit R-08 to high-casualty corridor.',
-        severity: 'CRITICAL',
-      },
-    ];
-
-    setActivityLogs(prev => [...revalLogs, ...prev]);
+    setActivityLogs(prev => [...dataset1025.activityLogs, ...prev]);
 
     setCrisisNotification({
       visible: true,
-      title: '⚠ Dynamic Resource Reassignment Executed',
-      message: 'New CRITICAL Incident INC-1025 detected. AI Orchestrator reallocated Rescue Team R-08 from INC-1022 to INC-1025.',
+      title: '⚠ DYNAMIC RESOURCE REASSIGNMENT TRIGGERED',
+      message: 'New CRITICAL Incident INC-1025 detected on NH-544. AI Orchestrator reallocated Rescue Team R-08 from INC-1022 to INC-1025.',
       type: 'critical',
     });
   }, []);
@@ -390,10 +378,13 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setIsCrisisUpdateSimulated(false);
     setIncidents(INITIAL_INCIDENTS);
     setSelectedIncidentId('INC-1024');
-    setAgents(INITIAL_AGENTS);
-    setResources(INITIAL_RESOURCES);
-    setResponsePlan(INITIAL_RESPONSE_PLAN);
-    setActivityLogs(INITIAL_ACTIVITY_LOG);
+    const d1024 = getCrisisDataById('INC-1024');
+    setAgents(d1024.agents);
+    setResources(d1024.resources);
+    setRoutes(d1024.routes);
+    setHospitals(d1024.hospitals);
+    setResponsePlan(d1024.responsePlan);
+    setActivityLogs(d1024.activityLogs);
     setAnalysisCompleted(true);
     setIsAnalyzing(false);
     setCrisisNotification(null);
@@ -402,15 +393,14 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   // 1-Click presentation demo loader
   const loadDemoIncident = useCallback(() => {
     resetSimulation();
-    setSelectedIncidentId('INC-1024');
-    setActiveTab('dashboard');
+    selectIncident('INC-1024', 'dashboard');
     setCrisisNotification({
       visible: true,
       title: '🎯 Demo Incident INC-1024 Loaded',
-      message: 'Coimbatore Flash Flood scenario with full multi-agent telemetry.',
+      message: 'Coimbatore Flash Flood scenario with full multi-agent telemetry loaded from JSON registry.',
       type: 'info',
     });
-  }, [resetSimulation]);
+  }, [resetSimulation, selectIncident]);
 
   return (
     <CrisisContext.Provider
@@ -420,6 +410,8 @@ export const CrisisProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         incidents,
         selectedIncident,
         selectIncident,
+        incidentsSubView,
+        setIncidentsSubView,
         agents,
         isAnalyzing,
         currentSimulatingIndex,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CrisisProvider, useCrisis } from './context/CrisisContext';
 import { Sidebar } from './components/layout/Sidebar';
 import { Header } from './components/layout/Header';
@@ -14,8 +14,7 @@ import { ResponsePlanView } from './components/views/ResponsePlanView';
 import { ActivityLogView } from './components/views/ActivityLogView';
 
 const MainContent: React.FC = () => {
-  const { activeTab, selectedIncident } = useCrisis();
-  const [incidentsSubView, setIncidentsSubView] = useState<'details' | 'list'>('details');
+  const { activeTab, selectedIncident, incidentsSubView, setIncidentsSubView } = useCrisis();
 
   const renderView = () => {
     switch (activeTab) {

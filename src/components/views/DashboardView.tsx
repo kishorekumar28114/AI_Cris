@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
-  AlertTriangle, 
   Flame, 
+  AlertTriangle, 
   ShieldCheck, 
   Building2, 
   Clock, 
@@ -15,10 +15,12 @@ import { useCrisis } from '../../context/CrisisContext';
 import { SeverityBadge } from '../common/SeverityBadge';
 import { StatusBadge } from '../common/StatusBadge';
 import { StylizedCrisisMap } from '../map/StylizedCrisisMap';
+import { CrisisOptionSelector } from '../common/CrisisOptionSelector';
 
 export const DashboardView: React.FC = () => {
   const { 
     incidents, 
+    selectedIncident,
     selectIncident, 
     activityLogs, 
     resources, 
@@ -58,9 +60,18 @@ export const DashboardView: React.FC = () => {
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-all shadow-lg shadow-purple-950/50"
           >
             <Sparkles className="h-4 w-4" />
-            <span>{isAnalyzing ? 'Simulating Agents...' : 'Run AI Analysis Simulation'}</span>
+            <span>{isAnalyzing ? 'Simulating Agents...' : `Run AI for ${selectedIncident.id}`}</span>
           </button>
         </div>
+      </div>
+
+      {/* 4 CRISES INTERACTIVE SELECTION OPTIONS */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl">
+        <CrisisOptionSelector 
+          targetTab="incidents" 
+          title="Select Crisis Option (Navigates to Incident Page)" 
+          subtitle="(Single Source: crisesData.json)"
+        />
       </div>
 
       {/* TOP KPI CARDS */}
@@ -96,7 +107,7 @@ export const DashboardView: React.FC = () => {
         {/* Resources Available */}
         <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-mono">Resources Available</span>
+            <span className="text-xs text-slate-400 font-mono">Resources Ready</span>
             <ShieldCheck className="h-4 w-4 text-cyan-400" />
           </div>
           <div className="mt-2 flex items-baseline gap-2">
@@ -110,14 +121,14 @@ export const DashboardView: React.FC = () => {
         {/* Hospitals Available */}
         <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-mono">Hospitals Available</span>
+            <span className="text-xs text-slate-400 font-mono">Hospitals Prepped</span>
             <Building2 className="h-4 w-4 text-emerald-400" />
           </div>
           <div className="mt-2 flex items-baseline gap-2">
             <span className="text-2xl md:text-3xl font-extrabold text-white font-mono">
-              0{hospitals.length + 4}
+              0{hospitals.length}
             </span>
-            <span className="text-[10px] text-emerald-400 font-medium font-mono">Triage Ready</span>
+            <span className="text-[10px] text-emerald-400 font-medium font-mono">In Network</span>
           </div>
         </div>
 
@@ -129,7 +140,7 @@ export const DashboardView: React.FC = () => {
           </div>
           <div className="mt-2 flex items-baseline gap-2">
             <span className="text-2xl md:text-3xl font-extrabold text-amber-400 font-mono">
-              0{pendingPlansCount + 2}
+              0{pendingPlansCount}
             </span>
             <span className="text-[10px] text-amber-300 font-medium">Awaiting Human</span>
           </div>
@@ -142,11 +153,11 @@ export const DashboardView: React.FC = () => {
           <div className="flex items-center gap-2">
             <Waves className="h-4 w-4 text-cyan-400" />
             <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
-              Live Tactical Map &bull; Sector Operations
+              Live Tactical Map &bull; Sector Operations ({selectedIncident.location})
             </h3>
           </div>
           <span className="text-xs text-slate-400 font-mono">
-            Interactive GIS Overview (Click markers or routes)
+            Interactive GIS Overview for {selectedIncident.id}
           </span>
         </div>
         <StylizedCrisisMap showRoutes={true} highlightRoute="both" />
@@ -165,7 +176,7 @@ export const DashboardView: React.FC = () => {
                 </span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                Click any incident row to inspect multi-agent reasoning and dispatch options.
+                Click any crisis option row to retrieve dynamic multi-agent analysis from <code className="text-cyan-400 font-mono">crisesData.json</code>.
               </p>
             </div>
           </div>
@@ -184,45 +195,63 @@ export const DashboardView: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60">
-                {incidents.map((incident) => (
-                  <tr
-                    key={incident.id}
-                    onClick={() => selectIncident(incident.id)}
-                    className="hover:bg-slate-800/50 cursor-pointer transition-colors group"
-                  >
-                    <td className="py-3.5 font-mono font-bold text-white group-hover:text-cyan-300 flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-                      {incident.id}
-                    </td>
-                    <td className="py-3.5 text-slate-300">
-                      {incident.type}
-                    </td>
-                    <td className="py-3.5 text-slate-300 font-medium">
-                      {incident.location}
-                    </td>
-                    <td className="py-3.5">
-                      <SeverityBadge severity={incident.severity} size="sm" />
-                    </td>
-                    <td className="py-3.5">
-                      <StatusBadge status={incident.status} />
-                    </td>
-                    <td className="py-3.5 text-slate-400 font-mono">
-                      {incident.timeAgo}
-                    </td>
-                    <td className="py-3.5 text-right">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          selectIncident(incident.id);
-                        }}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-cyan-600 hover:text-white text-slate-300 text-[11px] font-medium transition-all group-hover:bg-cyan-950 group-hover:text-cyan-200 group-hover:border-cyan-500/40 border border-transparent"
-                      >
-                        <span>AI Analysis</span>
-                        <ChevronRight className="h-3 w-3" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {incidents.map((incident, idx) => {
+                  const isSelected = incident.id === selectedIncident.id;
+                  return (
+                    <tr
+                      key={incident.id}
+                      onClick={() => selectIncident(incident.id, 'incidents')}
+                      className={`cursor-pointer transition-colors group ${
+                        isSelected ? 'bg-cyan-950/30' : 'hover:bg-slate-800/50'
+                      }`}
+                    >
+                      <td className="py-3.5 font-mono font-bold text-white group-hover:text-cyan-300 flex items-center gap-2">
+                        <span className={`h-2 w-2 rounded-full ${isSelected ? 'bg-cyan-400 animate-pulse' : 'bg-slate-600'}`} />
+                        <span>Opt {idx + 1}: {incident.id}</span>
+                      </td>
+                      <td className="py-3.5 text-slate-300">
+                        {incident.type}
+                      </td>
+                      <td className="py-3.5 text-slate-300 font-medium">
+                        {incident.location}
+                      </td>
+                      <td className="py-3.5">
+                        <SeverityBadge severity={incident.severity} size="sm" />
+                      </td>
+                      <td className="py-3.5">
+                        <StatusBadge status={incident.status} />
+                      </td>
+                      <td className="py-3.5 text-slate-400 font-mono">
+                        {incident.timeAgo}
+                      </td>
+                      <td className="py-3.5 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              selectIncident(incident.id, 'incidents');
+                            }}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-[11px] font-semibold transition-all shadow-sm"
+                          >
+                            <span>Incident Page</span>
+                            <ChevronRight className="h-3 w-3" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              selectIncident(incident.id, 'ai-analysis');
+                            }}
+                            className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800 hover:bg-purple-600 hover:text-white text-slate-300 text-[11px] font-medium transition-all border border-slate-700/60"
+                            title={`Jump directly to AI Analysis for ${incident.id}`}
+                          >
+                            <span>AI Analysis</span>
+                            <Sparkles className="h-3 w-3 text-purple-400" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -240,8 +269,8 @@ export const DashboardView: React.FC = () => {
                 REAL-TIME AUDIT
               </span>
             </div>
-            <p className="text-xs text-slate-400 mb-4">
-              Multi-agent sequence telemetry for incident INC-1024
+            <p className="text-xs text-slate-400 mb-4 font-mono">
+              Telemetry feed for target: <strong className="text-cyan-400">{selectedIncident.id}</strong> ({selectedIncident.title})
             </p>
 
             {/* Timeline Stream */}
@@ -279,10 +308,10 @@ export const DashboardView: React.FC = () => {
 
           <div className="mt-5 pt-3 border-t border-slate-800 text-center">
             <button
-              onClick={() => selectIncident('INC-1024')}
+              onClick={() => selectIncident(selectedIncident.id, 'incidents')}
               className="w-full py-2 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-cyan-300 hover:text-cyan-200 text-xs font-semibold font-mono flex items-center justify-center gap-1.5 transition-colors border border-slate-700/60"
             >
-              <span>Inspect Full Multi-Agent Decision Tree</span>
+              <span>Inspect Incident Dossier & Telemetry ({selectedIncident.id})</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
             </button>
           </div>

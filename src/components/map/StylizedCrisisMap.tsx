@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Shield, Crosshair, AlertTriangle, Building2 } from 'lucide-react';
+import { Shield, Crosshair, AlertTriangle, Building2, Flame, Car, Waves } from 'lucide-react';
+import { useCrisis } from '../../context/CrisisContext';
 
 interface StylizedCrisisMapProps {
   showRoutes?: boolean;
@@ -12,22 +13,44 @@ export const StylizedCrisisMap: React.FC<StylizedCrisisMapProps> = ({
   highlightRoute = 'both',
   compact = false,
 }) => {
+  const { selectedIncident, incidents, selectIncident, routes, hospitals, resources } = useCrisis();
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
+
+  const routeA = routes[0];
+  const routeB = routes[1];
+  const primaryHospital = hospitals[0];
+  const secondaryHospital = hospitals[1];
+  const primaryResource = resources[0];
+
+  const getIncidentIcon = (type: string) => {
+    switch (type) {
+      case 'Flood':
+        return Waves;
+      case 'Road Accident':
+        return Car;
+      case 'Fire':
+        return Flame;
+      default:
+        return AlertTriangle;
+    }
+  };
 
   return (
     <div className="relative w-full overflow-hidden rounded-xl border border-slate-800 bg-slate-950/90 shadow-2xl">
       {/* Map Header telemetry bar */}
-      <div className="flex items-center justify-between border-b border-slate-800/80 bg-slate-900/80 px-4 py-2 text-xs font-mono text-slate-400">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800/80 bg-slate-900/80 px-4 py-2 text-xs font-mono text-slate-400 gap-2">
         <div className="flex items-center gap-2">
           <Crosshair className="h-3.5 w-3.5 text-cyan-400 animate-spin" style={{ animationDuration: '8s' }} />
-          <span className="font-semibold text-slate-200">SITUATIONAL TACTICAL MAP</span>
+          <span className="font-semibold text-slate-200">TACTICAL SITUATIONAL GIS MAP</span>
           <span className="text-slate-600">|</span>
-          <span>SECTOR: COIMBATORE METRO (11.0168° N, 76.9558° E)</span>
+          <span className="text-cyan-300">
+            SECTOR: {selectedIncident.location.toUpperCase()} ({selectedIncident.id})
+          </span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1">
+          <span className="inline-flex items-center gap-1 text-emerald-400">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            LIVE TELEMETRY
+            TELEMETRY ACTIVE
           </span>
           <span className="rounded bg-slate-800 px-1.5 py-0.5 text-[10px] text-slate-300">EPSG:4326 MOCK</span>
         </div>
@@ -78,56 +101,36 @@ export const StylizedCrisisMap: React.FC<StylizedCrisisMapProps> = ({
             <path d="M 50,250 C 200,100 650,100 850,250 C 750,450 180,440 50,250 Z" strokeDasharray="4,4" />
             {/* Main Arterials */}
             <path d="M 120,480 L 320,310 L 500,280 L 760,180 L 880,120" stroke="#334155" strokeWidth="3" />
-            <path d="M 160,50 L 340,160 L 500,280 L 580,450" stroke="#334155" strokeWidth="2.5" />
-            <path d="M 320,310 L 420,440 L 680,430 L 760,180" stroke="#1e293b" strokeWidth="2" />
-            <path d="M 500,280 L 680,240 L 780,310" stroke="#1e293b" strokeWidth="1.5" />
+            <path d="M 220,100 L 340,240 L 520,380 L 780,460" stroke="#253347" strokeWidth="2" />
+            <path d="M 680,80 L 640,240 L 460,340 L 320,480" stroke="#1e293b" strokeWidth="2" strokeDasharray="6,4" />
           </g>
 
-          {/* Flood Inundation Zone (Polygonal overlay) */}
-          <polygon
-            points="430,220 560,200 610,290 580,360 480,370 420,300"
-            fill="url(#floodZoneGrad)"
-            stroke="#38bdf8"
-            strokeWidth="1.2"
-            strokeDasharray="6,3"
-            className="animate-pulse"
-          />
-          <text x="490" y="325" fill="#38bdf8" fontSize="11" fontFamily="monospace" opacity="0.85" textAnchor="middle">
-            FLOOD INUNDATION ZONE (1.2m DEPTH)
-          </text>
+          {/* Sector Boundary Box */}
+          <rect x="80" y="60" width="740" height="380" rx="8" fill="none" stroke="#0ea5e9" strokeWidth="1" strokeDasharray="10,6" strokeOpacity="0.25" />
 
-          {/* Blocked Road Marker (Avinashi Subway) */}
-          <g transform="translate(415, 290)">
-            <rect x="-18" y="-12" width="36" height="24" rx="4" fill="#7f1d1d" stroke="#ef4444" strokeWidth="1.5" />
-            <line x1="-12" y1="-8" x2="12" y2="8" stroke="#fecaca" strokeWidth="2" />
-            <line x1="12" y1="-8" x2="-12" y2="8" stroke="#fecaca" strokeWidth="2" />
-            <text x="24" y="4" fill="#f87171" fontSize="10" fontFamily="monospace" fontWeight="bold">
-              SUBWAY BLOCKED
-            </text>
-          </g>
-
-          {/* ROUTE B (Alternative / Detour) */}
-          {showRoutes && (highlightRoute === 'B' || highlightRoute === 'both') && (
-            <g opacity={highlightRoute === 'B' ? 1 : 0.65}>
+          {/* ROUTE B (Standby Alternative Corridor) */}
+          {showRoutes && routeB && (highlightRoute === 'B' || highlightRoute === 'both') && (
+            <g opacity={highlightRoute === 'B' ? 1 : 0.75}>
               <path
-                d="M 220,390 C 260,470 420,480 620,420 C 710,380 730,280 750,220"
+                d={routeB.pathD || 'M 180,420 C 220,490 400,520 620,440 C 720,380 760,280 780,210'}
                 fill="none"
-                stroke="url(#routeBGlow)"
-                strokeWidth={highlightRoute === 'B' ? 4.5 : 3}
-                strokeDasharray="8,6"
+                stroke="#d97706"
+                strokeWidth={highlightRoute === 'B' ? 4 : 2.5}
+                strokeDasharray="8,5"
+                strokeLinecap="round"
               />
-              <text x="480" y="475" fill="#fbbf24" fontSize="10" fontFamily="monospace" textAnchor="middle">
-                ROUTE B (TRICHY BYPASS - 5.6 KM, 16 MIN)
+              <text x="440" y="470" fill="#f59e0b" fontSize="10" fontFamily="monospace">
+                ROUTE B: {routeB.name} ({routeB.distanceKm} km, {routeB.etaMinutes} min)
               </text>
             </g>
           )}
 
           {/* ROUTE A (Recommended Primary Corridor) */}
-          {showRoutes && (highlightRoute === 'A' || highlightRoute === 'both') && (
+          {showRoutes && routeA && (highlightRoute === 'A' || highlightRoute === 'both') && (
             <g opacity={highlightRoute === 'A' ? 1 : 0.95}>
               {/* Pulsing neon path */}
               <path
-                d="M 220,390 C 290,340 370,250 490,240 C 600,230 680,210 750,220"
+                d={routeA.pathD || 'M 220,390 C 290,340 370,250 490,240 C 600,230 680,210 750,220'}
                 fill="none"
                 stroke="#06b6d4"
                 strokeWidth={highlightRoute === 'A' ? 6 : 4}
@@ -135,90 +138,111 @@ export const StylizedCrisisMap: React.FC<StylizedCrisisMapProps> = ({
                 strokeOpacity="0.3"
               />
               <path
-                d="M 220,390 C 290,340 370,250 490,240 C 600,230 680,210 750,220"
+                d={routeA.pathD || 'M 220,390 C 290,340 370,250 490,240 C 600,230 680,210 750,220'}
                 fill="none"
                 stroke="url(#routeAGlow)"
                 strokeWidth={highlightRoute === 'A' ? 3.5 : 2.5}
                 strokeLinecap="round"
               />
               <text x="360" y="270" fill="#22d3ee" fontSize="11" fontFamily="monospace" fontWeight="bold">
-                ✓ ROUTE A (RECOMMENDED ELEVATED CORRIDOR - 4.2 KM, 12 MIN)
+                ✓ ROUTE A: {routeA.name} ({routeA.distanceKm} km, {routeA.etaMinutes} min)
               </text>
             </g>
           )}
 
-          {/* UNIT 1: Rescue Team R-12 Marker */}
-          <g
-            transform="translate(220, 390)"
-            className="cursor-pointer group"
-            onMouseEnter={() => setHoveredPoint('rescue')}
-            onMouseLeave={() => setHoveredPoint(null)}
-          >
-            <circle cx="0" cy="0" r="16" fill="#1d4ed8" fillOpacity="0.25" className="animate-ping" />
-            <circle cx="0" cy="0" r="14" fill="#1e40af" stroke="#60a5fa" strokeWidth="2" />
-            <foreignObject x="-9" y="-9" width="18" height="18">
-              <Shield className="h-4.5 w-4.5 text-white" />
-            </foreignObject>
-            <rect x="-36" y="20" width="72" height="18" rx="3" fill="#0f172a" stroke="#3b82f6" strokeWidth="1" />
-            <text x="0" y="32" fill="#93c5fd" fontSize="9" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
-              RESCUE R-12
-            </text>
-          </g>
+          {/* UNIT 1: Primary Resource Marker */}
+          {primaryResource && (
+            <g
+              transform="translate(220, 390)"
+              className="cursor-pointer group"
+              onMouseEnter={() => setHoveredPoint('rescue')}
+              onMouseLeave={() => setHoveredPoint(null)}
+            >
+              <circle cx="0" cy="0" r="16" fill="#1d4ed8" fillOpacity="0.25" className="animate-ping" />
+              <circle cx="0" cy="0" r="14" fill="#1e40af" stroke="#60a5fa" strokeWidth="2" />
+              <foreignObject x="-9" y="-9" width="18" height="18">
+                <Shield className="h-4.5 w-4.5 text-white" />
+              </foreignObject>
+              <rect x="-42" y="20" width="84" height="18" rx="3" fill="#0f172a" stroke="#3b82f6" strokeWidth="1" />
+              <text x="0" y="32" fill="#93c5fd" fontSize="9" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
+                {primaryResource.callsign} ({primaryResource.type.slice(0, 6)})
+              </text>
+            </g>
+          )}
 
-          {/* UNIT 2: Destination Hospital Marker (Kovai Medical Center) */}
-          <g
-            transform="translate(750, 220)"
-            className="cursor-pointer group"
-            onMouseEnter={() => setHoveredPoint('hospital')}
-            onMouseLeave={() => setHoveredPoint(null)}
-          >
-            <circle cx="0" cy="0" r="16" fill="#059669" fillOpacity="0.25" className="animate-ping" />
-            <circle cx="0" cy="0" r="14" fill="#065f46" stroke="#34d399" strokeWidth="2" />
-            <foreignObject x="-9" y="-9" width="18" height="18">
-              <Building2 className="h-4.5 w-4.5 text-emerald-100" />
-            </foreignObject>
-            <rect x="-50" y="20" width="100" height="18" rx="3" fill="#0f172a" stroke="#10b981" strokeWidth="1" />
-            <text x="0" y="32" fill="#6ee7b7" fontSize="9" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
-              KOVAI MEDICAL CTR
-            </text>
-          </g>
+          {/* UNIT 2: Destination Hospital Marker */}
+          {primaryHospital && (
+            <g
+              transform="translate(750, 220)"
+              className="cursor-pointer group"
+              onMouseEnter={() => setHoveredPoint('hospital')}
+              onMouseLeave={() => setHoveredPoint(null)}
+            >
+              <circle cx="0" cy="0" r="16" fill="#059669" fillOpacity="0.25" className="animate-ping" />
+              <circle cx="0" cy="0" r="14" fill="#065f46" stroke="#34d399" strokeWidth="2" />
+              <foreignObject x="-9" y="-9" width="18" height="18">
+                <Building2 className="h-4.5 w-4.5 text-emerald-100" />
+              </foreignObject>
+              <rect x="-60" y="20" width="120" height="18" rx="3" fill="#0f172a" stroke="#10b981" strokeWidth="1" />
+              <text x="0" y="32" fill="#6ee7b7" fontSize="8" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
+                {primaryHospital.name.slice(0, 20)}
+              </text>
+            </g>
+          )}
 
-          {/* SECONDARY HOSPITAL (Government Hospital) */}
-          <g transform="translate(680, 420)" opacity="0.8">
-            <circle cx="0" cy="0" r="11" fill="#064e3b" stroke="#10b981" strokeWidth="1.5" />
-            <foreignObject x="-7" y="-7" width="14" height="14">
-              <Building2 className="h-3.5 w-3.5 text-emerald-300" />
-            </foreignObject>
-            <text x="0" y="24" fill="#a7f3d0" fontSize="8" fontFamily="monospace" textAnchor="middle">
-              GOVT HOSPITAL (ALT)
-            </text>
-          </g>
+          {/* SECONDARY HOSPITAL */}
+          {secondaryHospital && (
+            <g transform="translate(680, 420)" opacity="0.8">
+              <circle cx="0" cy="0" r="11" fill="#064e3b" stroke="#10b981" strokeWidth="1.5" />
+              <foreignObject x="-7" y="-7" width="14" height="14">
+                <Building2 className="h-3.5 w-3.5 text-emerald-300" />
+              </foreignObject>
+              <text x="0" y="24" fill="#a7f3d0" fontSize="8" fontFamily="monospace" textAnchor="middle">
+                {secondaryHospital.name.slice(0, 16)} (ALT)
+              </text>
+            </g>
+          )}
 
-          {/* PRIMARY INCIDENT MARKER (INC-1024 Coimbatore Flood) */}
+          {/* OTHER UNSELECTED INCIDENTS AS INTERACTIVE NODES */}
+          {incidents
+            .filter((inc) => inc.id !== selectedIncident.id)
+            .map((inc) => {
+              const OtherIcon = getIncidentIcon(inc.type);
+              return (
+                <g
+                  key={inc.id}
+                  transform={`translate(${inc.coordinates.x}, ${inc.coordinates.y})`}
+                  className="cursor-pointer group"
+                  onClick={() => selectIncident(inc.id)}
+                >
+                  <circle cx="0" cy="0" r="10" fill="#334155" stroke="#94a3b8" strokeWidth="1.5" className="group-hover:stroke-cyan-400 group-hover:scale-125 transition-transform" />
+                  <foreignObject x="-6" y="-6" width="12" height="12">
+                    <OtherIcon className="h-3 w-3 text-slate-300 group-hover:text-cyan-300" />
+                  </foreignObject>
+                  <text x="0" y="20" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle" className="group-hover:fill-cyan-300 font-bold">
+                    {inc.id} ({inc.location})
+                  </text>
+                </g>
+              );
+            })}
+
+          {/* PRIMARY TARGET INCIDENT MARKER (Active Selected Incident) */}
           <g
-            transform="translate(510, 260)"
+            transform={`translate(${selectedIncident.coordinates.x}, ${selectedIncident.coordinates.y})`}
             className="cursor-pointer"
             onMouseEnter={() => setHoveredPoint('incident')}
             onMouseLeave={() => setHoveredPoint(null)}
           >
             {/* Expanding radar rings */}
-            <circle cx="0" cy="0" r="28" fill="none" stroke="#ef4444" strokeWidth="1.5" strokeOpacity="0.4" className="animate-ping" />
-            <circle cx="0" cy="0" r="20" fill="none" stroke="#f87171" strokeWidth="2" strokeOpacity="0.6" />
-            <circle cx="0" cy="0" r="14" fill="#b91c1c" stroke="#fca5a5" strokeWidth="2" />
+            <circle cx="0" cy="0" r="32" fill="none" stroke={selectedIncident.severity === 'CRITICAL' ? '#ef4444' : '#f59e0b'} strokeWidth="1.5" strokeOpacity="0.4" className="animate-ping" />
+            <circle cx="0" cy="0" r="22" fill="none" stroke={selectedIncident.severity === 'CRITICAL' ? '#f87171' : '#fbbf24'} strokeWidth="2" strokeOpacity="0.6" />
+            <circle cx="0" cy="0" r="15" fill={selectedIncident.severity === 'CRITICAL' ? '#b91c1c' : '#b45309'} stroke="#fef08a" strokeWidth="2" />
             <foreignObject x="-8" y="-8" width="16" height="16">
               <AlertTriangle className="h-4 w-4 text-white" />
             </foreignObject>
-            <rect x="-42" y="-36" width="84" height="20" rx="4" fill="#450a0a" stroke="#ef4444" strokeWidth="1.5" />
-            <text x="0" y="-22" fill="#fecaca" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
-              INC-1024 [CRITICAL]
-            </text>
-          </g>
-
-          {/* SECONDARY ACTIVE INCIDENT (INC-1021 Pollachi) */}
-          <g transform="translate(240, 160)" opacity="0.75">
-            <circle cx="0" cy="0" r="8" fill="#d97706" stroke="#fbbf24" strokeWidth="1.5" />
-            <text x="0" y="18" fill="#fde68a" fontSize="8" fontFamily="monospace" textAnchor="middle">
-              INC-1021 (Pollachi)
+            <rect x="-60" y="-38" width="120" height="22" rx="4" fill="#0f172a" stroke={selectedIncident.severity === 'CRITICAL' ? '#ef4444' : '#f59e0b'} strokeWidth="1.5" />
+            <text x="0" y="-23" fill="#fecaca" fontSize="9" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
+              TARGET: {selectedIncident.id} [{selectedIncident.severity}]
             </text>
           </g>
 
@@ -233,66 +257,30 @@ export const StylizedCrisisMap: React.FC<StylizedCrisisMapProps> = ({
 
         {/* Hover info tooltip */}
         {hoveredPoint && (
-          <div className="absolute top-3 left-3 z-10 max-w-xs rounded-lg border border-slate-700 bg-slate-900/95 p-3 text-xs text-slate-200 shadow-xl backdrop-blur-md">
+          <div className="absolute top-3 left-3 z-10 max-w-xs rounded-lg border border-slate-700 bg-slate-900/95 p-3 text-xs text-slate-200 shadow-xl backdrop-blur-md font-mono">
             {hoveredPoint === 'incident' && (
               <div>
-                <p className="font-bold text-red-400">INC-1024: Coimbatore Flash Flood</p>
-                <p className="text-slate-400 mt-1">Status: AI Analysis Complete | 120+ civilians at risk</p>
-                <p className="text-cyan-400 text-[10px] mt-1 font-mono">11.0168° N, 76.9558° E</p>
+                <p className="font-bold text-red-400">{selectedIncident.id}: {selectedIncident.title}</p>
+                <p className="text-slate-400 mt-1">Location: {selectedIncident.location} | Urgency: {selectedIncident.urgency}</p>
+                <p className="text-slate-400">Casualties / Impact: {selectedIncident.affectedPeople}</p>
               </div>
             )}
-            {hoveredPoint === 'rescue' && (
+            {hoveredPoint === 'hospital' && primaryHospital && (
               <div>
-                <p className="font-bold text-blue-400">Rapid Rescue Team R-12</p>
-                <p className="text-slate-400 mt-1">Status: Available | Equipped with Zodiac boat | ETA 12 min</p>
+                <p className="font-bold text-emerald-400">{primaryHospital.name}</p>
+                <p className="text-slate-400 mt-1">{primaryHospital.traumaLevel}</p>
+                <p className="text-slate-400">{primaryHospital.availableBeds} beds available ({primaryHospital.distanceKm} km)</p>
               </div>
             )}
-            {hoveredPoint === 'hospital' && (
+            {hoveredPoint === 'rescue' && primaryResource && (
               <div>
-                <p className="font-bold text-emerald-400">Kovai Medical Center (BEST MATCH)</p>
-                <p className="text-slate-400 mt-1">Capacity: 72% | 28 Triage beds open | 18 ICU slots</p>
+                <p className="font-bold text-cyan-400">{primaryResource.name}</p>
+                <p className="text-slate-400 mt-1">Specialization: {primaryResource.specialization}</p>
+                <p className="text-slate-400">Status: {primaryResource.status} | ETA: {primaryResource.etaMinutes} min</p>
               </div>
             )}
           </div>
         )}
-      </div>
-
-      {/* Map Legend (Bottom Bar) */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-800 bg-slate-900/95 px-4 py-2.5 text-xs text-slate-300">
-        <div className="flex flex-wrap items-center gap-4">
-          <span className="font-semibold text-slate-400 uppercase tracking-wider text-[11px]">Tactical Legend:</span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-full bg-red-500 ring-2 ring-red-400/40" />
-            <span className="text-slate-200">Incident Epicenter</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-full bg-blue-500 ring-2 ring-blue-400/40" />
-            <span className="text-slate-200">Rescue Team</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-emerald-400/40" />
-            <span className="text-slate-200">Designated Hospital</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded bg-red-800 border border-red-500" />
-            <span className="text-red-300">Blocked Road</span>
-          </span>
-          {showRoutes && (
-            <>
-              <span className="flex items-center gap-1.5">
-                <span className="h-1 w-5 rounded bg-cyan-400" />
-                <span className="text-cyan-300">Route A (Recommended)</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="h-1 w-5 rounded border-b-2 border-dashed border-amber-400" />
-                <span className="text-amber-300">Route B (Alternative)</span>
-              </span>
-            </>
-          )}
-        </div>
-        <div className="text-[11px] text-slate-400 font-mono">
-          Interactive Prototype Simulation Map
-        </div>
       </div>
     </div>
   );

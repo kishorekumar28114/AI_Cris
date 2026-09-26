@@ -10,10 +10,11 @@ import {
   Radio
 } from 'lucide-react';
 import { useCrisis } from '../../context/CrisisContext';
+import { CrisisOptionSelector } from '../common/CrisisOptionSelector';
 import type { ResourceItem } from '../../types/crisis';
 
 export const ResourcesView: React.FC = () => {
-  const { resources, assignResource, isCrisisUpdateSimulated, simulateCrisisUpdate } = useCrisis();
+  const { resources, assignResource, isCrisisUpdateSimulated, simulateCrisisUpdate, selectedIncident } = useCrisis();
   const [selectedResourceModal, setSelectedResourceModal] = useState<ResourceItem | null>(null);
 
   // Categorize counts
@@ -23,6 +24,11 @@ export const ResourcesView: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* CRISIS SELECTION OPTIONS */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl">
+        <CrisisOptionSelector />
+      </div>
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl">
         <div>
@@ -31,7 +37,7 @@ export const ResourcesView: React.FC = () => {
               FLEET & PERSONNEL DISPATCH
             </span>
             <span className="text-xs text-slate-400 font-mono">
-              Sector: Central Tamil Nadu Emergency Reserve
+              Sector: {selectedIncident.location} & Central Reserve ({selectedIncident.id})
             </span>
           </div>
           <h2 className="text-xl md:text-2xl font-extrabold text-white mt-1">

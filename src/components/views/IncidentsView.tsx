@@ -10,6 +10,7 @@ import {
 import { useCrisis } from '../../context/CrisisContext';
 import { SeverityBadge } from '../common/SeverityBadge';
 import { StatusBadge } from '../common/StatusBadge';
+import { CrisisOptionSelector } from '../common/CrisisOptionSelector';
 import type { SeverityLevel } from '../../types/crisis';
 
 export const IncidentsView: React.FC = () => {
@@ -96,6 +97,11 @@ export const IncidentsView: React.FC = () => {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* 4 CRISES SELECTION OPTIONS */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl">
+        <CrisisOptionSelector />
       </div>
 
       {/* INCIDENTS CARDS GRID */}

@@ -124,3 +124,14 @@ export type NavigationTab =
   | 'hospitals'
   | 'response-plans'
   | 'activity-log';
+
+export interface CrisisDataset {
+  incident: Incident;
+  agents: AgentStep[];
+  responsePlan: ResponsePlan;
+  resources: ResourceItem[];
+  routes: RouteOption[];
+  hospitals: HospitalItem[];
+  activityLogs: ActivityLogItem[];
+}
+

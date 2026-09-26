@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useCrisis } from '../../context/CrisisContext';
 import { SeverityBadge } from '../common/SeverityBadge';
+import { CrisisOptionSelector } from '../common/CrisisOptionSelector';
 
 export const ResponsePlanView: React.FC = () => {
   const { responsePlan, approvePlan, modifyPlan, rejectPlan, selectedIncident, setActiveTab } = useCrisis();
@@ -31,6 +32,11 @@ export const ResponsePlanView: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* CRISIS SELECTION OPTIONS */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl">
+        <CrisisOptionSelector />
+      </div>
+
       {/* Top Banner */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-6 shadow-xl">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">

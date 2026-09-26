@@ -1,0 +1,2040 @@
+{
+  "crises": {
+    "INC-1024": {
+      "incident": {
+        "id": "INC-1024",
+        "title": "Coimbatore Urban Flash Flood",
+        "type": "Flood",
+        "location": "Coimbatore",
+        "severity": "CRITICAL",
+        "status": "AI Analysis",
+        "reportedTime": "08:42 AM",
+        "timeAgo": "2 min ago",
+        "affectedPeople": "120+",
+        "urgency": "Critical",
+        "infrastructureImpact": "High",
+        "weatherCondition": "Heavy Rainfall (48mm/hr)",
+        "evidenceSummary": "Citizen geotagged video & photos of rising waters along Avinashi Road subways.",
+        "coordinates": { "x": 510, "y": 260 },
+        "isDemoPrimary": true
+      },
+      "agents": [
+        {
+          "id": "agent-1",
+          "name": "Incident Analysis Agent",
+          "shortRole": "NLP & Incident Extraction",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Detected: Flash Flood in Coimbatore urban corridor. Estimated affected population: 120+ across commercial & residential basements.",
+          "technicalDetails": [
+            "Extracted entity coordinates: 11.0168° N, 76.9558° E (Avinashi Corridor)",
+            "Identified critical flash flood markers from emergency SOS message batch #409",
+            "Structural threat index: 0.84 (Subway inundation & electrical transformer flooding)"
+          ],
+          "confidence": 96,
+          "runDurationMs": 1100
+        },
+        {
+          "id": "agent-2",
+          "name": "Evidence Verification Agent",
+          "shortRole": "Multi-Modal Truth Verification",
+          "status": "verified",
+          "badgeText": "✓ Verified",
+          "summary": "Citizen video + emergency telemetry + weather radar cross-referenced. Zero synthetic or recycled media markers detected.",
+          "technicalDetails": [
+            "Metadata EXIF verification: Timestamp matches SOS transmission delta (< 4 min)",
+            "Computer vision scene parsing: Water depth estimated at 1.2m against standard road median",
+            "Cross-referenced with civic drainage overflow sensors #CB-04 & #CB-09"
+          ],
+          "confidence": 98,
+          "runDurationMs": 1400
+        },
+        {
+          "id": "agent-3",
+          "name": "Weather Intelligence Agent",
+          "shortRole": "Meteorological Telemetry & Radar",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Heavy precipitation confirmed (48mm/hr). Convective cell persisting over low-lying areas for the next 90 minutes.",
+          "technicalDetails": [
+            "Doppler radar reflectivity: 46 dBZ convective cell tracking north-east",
+            "Catchment basin saturation rate: 94% (run-off absorption critically depleted)",
+            "Projected peak precipitation window: 08:45 AM - 10:15 AM"
+          ],
+          "confidence": 94,
+          "runDurationMs": 950
+        },
+        {
+          "id": "agent-4",
+          "name": "Severity Assessment Agent",
+          "shortRole": "Priority Classification Engine",
+          "status": "critical",
+          "badgeText": "✓ Critical",
+          "summary": "Priority: CRITICAL (92/100). High trapped population + electrical substation threat + torrential ongoing cloudburst.",
+          "technicalDetails": [
+            "Multi-factor weighted severity score: 92 / 100",
+            "Population risk index: 94/100 (high density morning rush-hour corridor)",
+            "Escalation vector: Rapid water ingress threatening 110kV feeder substation"
+          ],
+          "confidence": 97,
+          "runDurationMs": 1200
+        },
+        {
+          "id": "agent-5",
+          "name": "Resource Coordination Agent",
+          "shortRole": "Fleet & Personnel Optimization",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: 2 Swift Water Rescue Teams (R-12, R-08), 1 ALS Paramedic Ambulance (A-04), 1 Amphibious Vehicle (EV-03).",
+          "technicalDetails": [
+            "Proximity heuristic: Unit R-12 located 4.2 km away, equipped with Zodiac inflatable boats",
+            "EMS dispatch protocol triggered for 2 Advanced Life Support units with hypothermia kits",
+            "Staging area proposed: VOC Park elevated grounds (elevation 420m AMSL)"
+          ],
+          "confidence": 95,
+          "runDurationMs": 1350
+        },
+        {
+          "id": "agent-6",
+          "name": "Route Planning Agent",
+          "shortRole": "Dynamic Road Clearance & Routing",
+          "status": "ready",
+          "badgeText": "✓ Route Ready",
+          "summary": "Primary route cleared via North Flyover (Route A). Avinashi Underpass flagged as completely SUBMERGED.",
+          "technicalDetails": [
+            "Avoided segment: Avinashi Subway km 4.1 (water depth 1.4m impassable)",
+            "Route A distance: 4.2 km | Estimated transit: 12 mins (clear high-elevation flyover)",
+            "Alternative Route B distance: 5.6 km | Estimated transit: 16 mins (Trichy Ring Road)"
+          ],
+          "confidence": 93,
+          "runDurationMs": 1150
+        },
+        {
+          "id": "agent-7",
+          "name": "Hospital Recommendation Agent",
+          "shortRole": "Healthcare Triage & Capacity Engine",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended hospital: Kovai Medical Center (5.4 km). Status: Available (72% occupancy, 18 ICU beds, hypothermia bay open).",
+          "technicalDetails": [
+            "Trauma Level 1 facility with 24/7 hyperbaric & acute hypothermia emergency bay",
+            "Emergency Department capacity: 28 available beds | ICU status: 18 beds open",
+            "Secondary alternative: Government Medical College Hospital (7.1 km, 88% capacity)"
+          ],
+          "confidence": 99,
+          "runDurationMs": 1050
+        }
+      ],
+      "responsePlan": {
+        "id": "PLAN-1024-ALPHA",
+        "incidentId": "INC-1024",
+        "incidentTitle": "Coimbatore Urban Flash Flood",
+        "incidentLocation": "Coimbatore, Tamil Nadu",
+        "priority": "CRITICAL",
+        "generatedAt": "08:46 AM",
+        "actions": [
+          "Dispatch Rapid Flood Rescue Team R-12 to Avinashi Corridor junction with Zodiac inflatable boats",
+          "Dispatch Paramedic ALS Ambulance A-04 equipped with hypothermia stabilization and oxygen kits",
+          "Route emergency units via North Flyover (Route A), completely bypassing submerged Avinashi Subway",
+          "Pre-alert Kovai Medical Center Emergency Dept to prepare 15 acute intake decontamination beds",
+          "Continuous Doppler radar telemetry: trigger automated warning if rainfall rate exceeds 50mm/hr",
+          "Hold Urban Search & Rescue Unit R-08 on hot standby at VOC Park staging perimeter"
+        ],
+        "justifications": [
+          {
+            "factor": "Multi-Modal Evidence",
+            "agent": "Evidence Verification Agent",
+            "assessment": "Citizen geotagged video + ultrasonic sensor telemetry verified authentic.",
+            "confidence": "98%"
+          },
+          {
+            "factor": "Severe Weather Forecast",
+            "agent": "Weather Intelligence Agent",
+            "assessment": "Active 48mm/hr convective rain cell with worsening runoff trajectory.",
+            "confidence": "94%"
+          },
+          {
+            "factor": "Critical Severity Index",
+            "agent": "Severity Assessment Agent",
+            "assessment": "Score 92/100: 120+ civilians trapped, electrical substation proximity risk.",
+            "confidence": "97%"
+          },
+          {
+            "factor": "Asset Availability",
+            "agent": "Resource Coordination Agent",
+            "assessment": "Rescue Team R-12 & Ambulance A-04 reachable within 12-minute response window.",
+            "confidence": "95%"
+          },
+          {
+            "factor": "Route Accessibility",
+            "agent": "Route Planning Agent",
+            "assessment": "Elevated Route A bypasses critical underpass choke point with zero delays.",
+            "confidence": "93%"
+          },
+          {
+            "factor": "Hospital Preparedness",
+            "agent": "Hospital Recommendation Agent",
+            "assessment": "Kovai Medical Center has 28 open triage beds and immediate trauma capacity.",
+            "confidence": "99%"
+          }
+        ],
+        "approvalStatus": "PENDING_APPROVAL"
+      },
+      "resources": [
+        {
+          "id": "res-1024-1",
+          "callsign": "R-12",
+          "name": "Rapid Flood Rescue Unit R-12",
+          "type": "Rescue Team",
+          "distanceKm": 4.2,
+          "etaMinutes: ": 12,
+          "etaMinutes": 12,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 8,
+          "specialization": "Swift Water & Zodiac Boat Operations"
+        },
+        {
+          "id": "res-1024-2",
+          "callsign": "R-08",
+          "name": "Urban Search & Rescue Team R-08",
+          "type": "Rescue Team",
+          "distanceKm": 7.1,
+          "etaMinutes": 18,
+          "status": "Available",
+          "recommendation": "BACKUP",
+          "personnelCount": 10,
+          "specialization": "Structural Shoring & Deep Basement Pumping"
+        },
+        {
+          "id": "res-1024-3",
+          "callsign": "A-04",
+          "name": "Paramedic Ambulance ALS A-04",
+          "type": "Ambulance",
+          "distanceKm": 3.5,
+          "etaMinutes": 9,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 3,
+          "specialization": "Advanced Life Support & Hypothermia Protocol"
+        },
+        {
+          "id": "res-1024-4",
+          "callsign": "A-09",
+          "name": "Triage Transport Ambulance A-09",
+          "type": "Ambulance",
+          "distanceKm": 6.8,
+          "etaMinutes": 17,
+          "status": "Available",
+          "recommendation": "BACKUP",
+          "personnelCount": 3,
+          "specialization": "Multi-Patient Stretcher Transit"
+        },
+        {
+          "id": "res-1024-5",
+          "callsign": "EV-03",
+          "name": "High-Clearance Amphibious EV-03",
+          "type": "Emergency Vehicle",
+          "distanceKm": 5.1,
+          "etaMinutes": 14,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 4,
+          "specialization": "Waterlogged Terrain Navigation & Dewatering"
+        },
+        {
+          "id": "res-1024-6",
+          "callsign": "SQ-01",
+          "name": "Civil Defense Quick Reaction Squad SQ-01",
+          "type": "Personnel Squad",
+          "distanceKm": 4.8,
+          "etaMinutes": 15,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 14,
+          "specialization": "Perimeter Cordon & Evacuation Management"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rt-1024-1",
+          "name": "Primary Elevated Corridor (Route A)",
+          "code": "ROUTE_A",
+          "type": "recommended",
+          "distanceKm": 4.2,
+          "etaMinutes": 12,
+          "roadCondition": "Avinashi North Flyover clear; zero standing water on elevated deck",
+          "status": "Operational (High Clearance Approved)",
+          "hazardNote": "Avinashi Underpass km 4.1 completely submerged (bypassed via elevated ramp)",
+          "pathD": "M 180,420 C 260,380 340,320 480,290 C 580,270 660,250 780,210",
+          "isRecommended": true,
+          "clearanceLevel": "Standard Ambulances & Rescue Trucks"
+        },
+        {
+          "id": "rt-1024-2",
+          "name": "Trichy Ring Bypass (Route B)",
+          "code": "ROUTE_B",
+          "type": "alternative",
+          "distanceKm": 5.6,
+          "etaMinutes": 16,
+          "roadCondition": "Wet pavement, zero standing water, moderate civilian traffic flow",
+          "status": "Clear & Standby Backup",
+          "hazardNote": "Traffic signals active; potential 4 min delay during rush hour",
+          "pathD": "M 180,420 C 220,490 400,520 620,440 C 720,380 760,280 780,210",
+          "isRecommended": false,
+          "clearanceLevel": "All Emergency Vehicles"
+        }
+      ],
+      "hospitals": [
+        {
+          "id": "hosp-1024-1",
+          "name": "Kovai Medical Center & Hospital (KMCH)",
+          "emergency": "Available",
+          "icu": "Available",
+          "capacityPercent": 72,
+          "distanceKm": 5.4,
+          "travelMinutes": 14,
+          "recommendation": "BEST MATCH",
+          "traumaLevel": "Level 1 Trauma & Hypothermia Unit",
+          "availableBeds": 28,
+          "totalBeds": 100,
+          "contact": "+91 422 432 3800",
+          "locationArea": "Avinashi Road, Civil Aerodrome Post"
+        },
+        {
+          "id": "hosp-1024-2",
+          "name": "Government Medical College Hospital Coimbatore",
+          "emergency": "Available",
+          "icu": "Limited",
+          "capacityPercent": 88,
+          "distanceKm": 7.1,
+          "travelMinutes": 19,
+          "recommendation": "ALTERNATIVE",
+          "traumaLevel": "Tertiary Care Government Facility",
+          "availableBeds": 12,
+          "totalBeds": 120,
+          "contact": "+91 422 230 1393",
+          "locationArea": "Trichy Road, Town Hall"
+        }
+      ],
+      "activityLogs": [
+        {
+          "id": "act-1024-8",
+          "timestamp": "08:46:21 AM",
+          "timeAgo": "Just now",
+          "incidentId": "INC-1024",
+          "category": "AI_AGENT",
+          "agentName": "AI / API Orchestrator",
+          "title": "AI Response Plan Generated",
+          "description": "Synthesized 7 agent outputs into Plan #PLAN-1024-ALPHA. Awaiting Human-in-the-Loop authorization.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1024-7",
+          "timestamp": "08:45:58 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1024",
+          "category": "AI_AGENT",
+          "agentName": "Hospital Recommendation Agent",
+          "title": "Healthcare Destination Locked",
+          "description": "Selected Kovai Medical Center (5.4 km, 72% capacity, 18 ICU beds available).",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1024-6",
+          "timestamp": "08:45:31 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1024",
+          "category": "AI_AGENT",
+          "agentName": "Route Planning Agent",
+          "title": "Safe Evacuation Path Computed",
+          "description": "Generated Route A (4.2 km, 12 min). Flagged and isolated flooded Avinashi subway segment.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1024-5",
+          "timestamp": "08:45:04 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1024",
+          "category": "AI_AGENT",
+          "agentName": "Resource Coordination Agent",
+          "title": "Resource Allocation Formulated",
+          "description": "Assigned Rescue Team R-12 & Ambulance A-04. Reserved R-08 as high-priority secondary backup.",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1024-4",
+          "timestamp": "08:44:42 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1024",
+          "category": "AI_AGENT",
+          "agentName": "Severity Assessment Agent",
+          "title": "Incident Classified as CRITICAL",
+          "description": "Composite score: 92/100. Factors: 120+ affected citizens, infrastructure flooding, ongoing storm cell.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1024-3",
+          "timestamp": "08:44:11 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1024",
+          "category": "AI_AGENT",
+          "agentName": "Weather Intelligence Agent",
+          "title": "Severe Meteorological Alert",
+          "description": "Doppler radar confirmed heavy precipitation (48mm/hr). Catchment basin saturation at 94%.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1024-2",
+          "timestamp": "08:43:32 AM",
+          "timeAgo": "3 min ago",
+          "incidentId": "INC-1024",
+          "category": "AI_AGENT",
+          "agentName": "Evidence Verification Agent",
+          "title": "Citizen Media Authenticated",
+          "description": "Cross-validated geo-tagged mobile imagery with municipality drainage sensor overflow alerts.",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1024-1",
+          "timestamp": "08:42:58 AM",
+          "timeAgo": "4 min ago",
+          "incidentId": "INC-1024",
+          "category": "CRISIS_ALERT",
+          "agentName": "Incident Analysis Agent",
+          "title": "New Crisis SOS Ingestion",
+          "description": "Extracted flood coordinates: Coimbatore Avinashi Corridor. 120+ residents reported in high risk.",
+          "severity": "CRITICAL"
+        }
+      ]
+    },
+    "INC-1023": {
+      "incident": {
+        "id": "INC-1023",
+        "title": "Multi-Vehicle Collision on Bypass",
+        "type": "Road Accident",
+        "location": "Tiruppur",
+        "severity": "HIGH",
+        "status": "Awaiting Approval",
+        "reportedTime": "08:34 AM",
+        "timeAgo": "8 min ago",
+        "affectedPeople": "14 injured (3 trapped)",
+        "urgency": "High",
+        "infrastructureImpact": "Medium",
+        "weatherCondition": "Overcast & wet pavement (Friction 0.28)",
+        "evidenceSummary": "Highway patrol CCTV feed confirmed 5-vehicle pileup, multiple trapped occupants, and diesel fuel spill across both northbound lanes.",
+        "coordinates": { "x": 680, "y": 190 },
+        "isDemoPrimary": false
+      },
+      "agents": [
+        {
+          "id": "agent-1",
+          "name": "Incident Analysis Agent",
+          "shortRole": "NLP & Incident Extraction",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Detected: 5-vehicle chain collision on NH-544 Tiruppur Bypass (km 22.4). 14 injured with 3 critical cabin entanglements and diesel leak.",
+          "technicalDetails": [
+            "Extracted Highway Node: NH-544 Bypass km 22.4 (11.1085° N, 77.3411° E)",
+            "Vehicles identified: 2 commercial container trucks, 1 private bus, 2 passenger sedans",
+            "Casualty estimate: 14 injured (3 Red category requiring immediate extrication)"
+          ],
+          "confidence": 95,
+          "runDurationMs": 1050
+        },
+        {
+          "id": "agent-2",
+          "name": "Evidence Verification Agent",
+          "shortRole": "Multi-Modal Truth Verification",
+          "status": "verified",
+          "badgeText": "✓ Verified",
+          "summary": "Highway CCTV camera #TP-88 verified against toll plaza RFID deceleration sensors. Crash signature 100% confirmed.",
+          "technicalDetails": [
+            "Speed drop anomaly: Traffic velocity fell from 82 km/h to 0 km/h instantaneously at 08:33:14 AM",
+            "Computer vision vehicle deformation indexing: Heavy cabin intrusion on passenger sedan #TN-38-BZ-4412",
+            "Thermal camera: Fuel spill heat dissipation indicates unignited diesel pooling"
+          ],
+          "confidence": 97,
+          "runDurationMs": 1250
+        },
+        {
+          "id": "agent-3",
+          "name": "Weather Intelligence Agent",
+          "shortRole": "Meteorological Telemetry & Radar",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Overcast conditions with continuous light drizzle. Road friction coefficient measured at 0.28 (high hydroplaning hazard).",
+          "technicalDetails": [
+            "Ambient temperature: 24°C | Relative Humidity: 91% | Surface moisture: High",
+            "Visibility: 2.2 km (fog patches lifting near bridge overpass)",
+            "Forecast: Intermittent squalls for next 40 minutes"
+          ],
+          "confidence": 93,
+          "runDurationMs": 880
+        },
+        {
+          "id": "agent-4",
+          "name": "Severity Assessment Agent",
+          "shortRole": "Priority Classification Engine",
+          "status": "critical",
+          "badgeText": "✓ High Priority",
+          "summary": "Priority: HIGH (84/100). Polytrauma victims trapped in vehicle wreckage combined with flammable diesel hazard on interstate route.",
+          "technicalDetails": [
+            "Trauma Severity Score (RTS): High urgency for 3 pinned occupants",
+            "Hazard Escalation Factor: 400 liters of diesel fuel spread over 60 meters of wet bitumen",
+            "Logistical impact: Arterial highway gridlock backing up 3.4 km"
+          ],
+          "confidence": 96,
+          "runDurationMs": 1120
+        },
+        {
+          "id": "agent-5",
+          "name": "Resource Coordination Agent",
+          "shortRole": "Fleet & Personnel Optimization",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: 1 Heavy Extrication Squad (R-05 with Jaws of Life), 2 ALS Trauma Ambulances (A-07, A-02), 1 Fire Foam Tender (F-02).",
+          "technicalDetails": [
+            "Hydraulic rescue cutter unit R-05 en route from Tiruppur Central Fire Depot (ETA 11 min)",
+            "Fire Tender F-02 dispatched with aqueous film-forming foam (AFFF) for fuel blanket",
+            "Highway patrol interceptor SQ-03 staging traffic diversion at Palladam junction"
+          ],
+          "confidence": 97,
+          "runDurationMs": 1300
+        },
+        {
+          "id": "agent-6",
+          "name": "Route Planning Agent",
+          "shortRole": "Dynamic Road Clearance & Routing",
+          "status": "ready",
+          "badgeText": "✓ Route Ready",
+          "summary": "Primary Route: Bypass Elevated Expressway Corridor (6.1 km, 11 min). Diverting civilian traffic via Old Palladam Arterial.",
+          "technicalDetails": [
+            "Cleared emergency transit lane on northbound shoulder with escort vehicle",
+            "Bypassed gridlocked crash apron via emergency median access gate #4",
+            "Alternative Route B via Old Palladam Road: 8.4 km, 18 min (standby for non-critical transfers)"
+          ],
+          "confidence": 94,
+          "runDurationMs": 1100
+        },
+        {
+          "id": "agent-7",
+          "name": "Hospital Recommendation Agent",
+          "shortRole": "Healthcare Triage & Capacity Engine",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: Tiruppur District Headquarters Hospital (4.8 km). Level 2 Trauma Center with 16 available acute surgical beds.",
+          "technicalDetails": [
+            "Designated priority surgical receiving bay for 3 extricated polytrauma casualties",
+            "Blood bank inventory verified: O-negative and A-positive units primed",
+            "Secondary backup: Revathi Medical Center (6.5 km, private trauma emergency ICU)"
+          ],
+          "confidence": 98,
+          "runDurationMs": 1020
+        }
+      ],
+      "responsePlan": {
+        "id": "PLAN-1023-BRAVO",
+        "incidentId": "INC-1023",
+        "incidentTitle": "Multi-Vehicle Collision on Bypass",
+        "incidentLocation": "Tiruppur Bypass (NH-544 km 22.4)",
+        "priority": "HIGH",
+        "generatedAt": "08:38 AM",
+        "actions": [
+          "Dispatch Heavy Extrication Squad R-05 with hydraulic shears to liberate 3 trapped occupants in cabin",
+          "Deploy Fire Tender F-02 to lay 200m aqueous film-forming foam (AFFF) blanket over diesel spill",
+          "Dispatch Paramedic Trauma Ambulances A-07 & A-02 for on-scene triage and cervical spine immobilization",
+          "Coordinate Highway Police SQ-03 to seal northbound lanes and divert traffic at Palladam cloverleaf",
+          "Pre-alert Tiruppur District Headquarters Hospital Trauma Theater for immediate thoracotomy/laparotomy",
+          "Deploy heavy crane recovery rig CR-02 on Route B for rapid vehicular clearance once casualties are extracted"
+        ],
+        "justifications": [
+          {
+            "factor": "Extrication Criticality",
+            "agent": "Incident Analysis Agent",
+            "assessment": "3 trapped casualties with compression trauma require hydraulic jaws within Golden Hour.",
+            "confidence": "95%"
+          },
+          {
+            "factor": "Verified Sensor Telemetry",
+            "agent": "Evidence Verification Agent",
+            "assessment": "CCTV #TP-88 confirms full blockage and active diesel vapor hazard.",
+            "confidence": "97%"
+          },
+          {
+            "factor": "Surface Friction Threat",
+            "agent": "Weather Intelligence Agent",
+            "assessment": "Road friction 0.28 poses secondary collision risks without instant traffic diversion.",
+            "confidence": "93%"
+          },
+          {
+            "factor": "Proximity Extrication",
+            "agent": "Resource Coordination Agent",
+            "assessment": "Heavy Rescue R-05 & Foam Tender F-02 available within 11 minutes.",
+            "confidence": "97%"
+          },
+          {
+            "factor": "Highway Transit Corridor",
+            "agent": "Route Planning Agent",
+            "assessment": "Elevated Expressway Route A provides direct access via cleared emergency shoulder.",
+            "confidence": "94%"
+          },
+          {
+            "factor": "Trauma Surgical Readiness",
+            "agent": "Hospital Recommendation Agent",
+            "assessment": "Tiruppur HQ Hospital has 16 trauma beds and active orthopedic surgical teams.",
+            "confidence": "98%"
+          }
+        ],
+        "approvalStatus": "PENDING_APPROVAL"
+      },
+      "resources": [
+        {
+          "id": "res-1023-1",
+          "callsign": "R-05",
+          "name": "Heavy Extrication Rescue Squad R-05",
+          "type": "Rescue Team",
+          "distanceKm": 4.5,
+          "etaMinutes": 11,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 7,
+          "specialization": "Hydraulic Jaws of Life & Heavy Vehicle Stabilization"
+        },
+        {
+          "id": "res-1023-2",
+          "callsign": "A-07",
+          "name": "Critical Polytrauma Ambulance A-07",
+          "type": "Ambulance",
+          "distanceKm": 3.8,
+          "etaMinutes": 9,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 3,
+          "specialization": "Polytrauma Resuscitation & Blood Transfusion Kit"
+        },
+        {
+          "id": "res-1023-3",
+          "callsign": "A-02",
+          "name": "Rapid EMS Mobile Unit A-02",
+          "type": "Ambulance",
+          "distanceKm": 5.2,
+          "etaMinutes": 13,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 3,
+          "specialization": "Spinal Trauma & Mobile Airway Management"
+        },
+        {
+          "id": "res-1023-4",
+          "callsign": "F-02",
+          "name": "Highway Fire & Foam Tender F-02",
+          "type": "Emergency Vehicle",
+          "distanceKm": 4.1,
+          "etaMinutes": 10,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 5,
+          "specialization": "Aqueous Film-Forming Foam & Fuel Spill Suppression"
+        },
+        {
+          "id": "res-1023-5",
+          "callsign": "SQ-03",
+          "name": "Highway Patrol Interceptor Squad SQ-03",
+          "type": "Personnel Squad",
+          "distanceKm": 2.9,
+          "etaMinutes": 7,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 6,
+          "specialization": "Interstate Traffic Diversion & Crash Scene Cordon"
+        },
+        {
+          "id": "res-1023-6",
+          "callsign": "R-11",
+          "name": "Secondary Extrication Backup Unit R-11",
+          "type": "Rescue Team",
+          "distanceKm": 8.0,
+          "etaMinutes": 19,
+          "status": "Available",
+          "recommendation": "BACKUP",
+          "personnelCount": 8,
+          "specialization": "Heavy Winch Recovery & Cargo Shifting"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rt-1023-1",
+          "name": "Bypass Expressway Direct Corridor (Route A)",
+          "code": "ROUTE_A",
+          "type": "recommended",
+          "distanceKm": 6.1,
+          "etaMinutes": 11,
+          "roadCondition": "Expressway northbound shoulder cleared for emergency response",
+          "status": "Operational (Priority Emergency Corridor)",
+          "hazardNote": "Crash site at km 22.4 requires 200m buffer zone around diesel spill",
+          "pathD": "M 200,450 C 300,390 450,300 600,240 C 700,200 780,180 840,160",
+          "isRecommended": true,
+          "clearanceLevel": "All Emergency Fleet & Foam Trucks"
+        },
+        {
+          "id": "rt-1023-2",
+          "name": "Palladam Road Arterial Bypass (Route B)",
+          "code": "ROUTE_B",
+          "type": "alternative",
+          "distanceKm": 8.4,
+          "etaMinutes": 18,
+          "roadCondition": "Two-lane urban arterial with speed bumps and traffic lights",
+          "status": "Clear Civilian Detour Route",
+          "hazardNote": "Congestion buildup at railway level crossing gate #12",
+          "pathD": "M 200,450 C 260,520 480,500 680,410 C 780,340 820,240 840,160",
+          "isRecommended": false,
+          "clearanceLevel": "Light Vehicles & Diverted Traffic"
+        }
+      ],
+      "hospitals": [
+        {
+          "id": "hosp-1023-1",
+          "name": "Tiruppur District Government Headquarters Hospital",
+          "emergency": "Available",
+          "icu": "Available",
+          "capacityPercent": 80,
+          "distanceKm": 4.8,
+          "travelMinutes": 12,
+          "recommendation": "BEST MATCH",
+          "traumaLevel": "Level 2 Dedicated Trauma & Orthopedic Center",
+          "availableBeds": 16,
+          "totalBeds": 80,
+          "contact": "+91 421 224 2333",
+          "locationArea": "Kumaran Road, Tiruppur Central"
+        },
+        {
+          "id": "hosp-1023-2",
+          "name": "Revathi Medical Center & Trauma Care",
+          "emergency": "Available",
+          "icu": "Limited",
+          "capacityPercent": 65,
+          "distanceKm": 6.5,
+          "travelMinutes": 15,
+          "recommendation": "ALTERNATIVE",
+          "traumaLevel": "Multi-Speciality Emergency Hospital",
+          "availableBeds": 11,
+          "totalBeds": 60,
+          "contact": "+91 421 433 1111",
+          "locationArea": "Dharapuram Road, Tiruppur"
+        }
+      ],
+      "activityLogs": [
+        {
+          "id": "act-1023-8",
+          "timestamp": "08:38:15 AM",
+          "timeAgo": "Just now",
+          "incidentId": "INC-1023",
+          "category": "AI_AGENT",
+          "agentName": "AI / API Orchestrator",
+          "title": "Highway Crash Response Plan Generated",
+          "description": "Synthesized 7 agent reports into Plan #PLAN-1023-BRAVO. Ready for Coordinator authorization.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1023-7",
+          "timestamp": "08:37:44 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1023",
+          "category": "AI_AGENT",
+          "agentName": "Hospital Recommendation Agent",
+          "title": "Hospital Surgical Alert Issued",
+          "description": "Matched Tiruppur District HQ Hospital. 16 trauma beds pre-cleared for incoming casualties.",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1023-6",
+          "timestamp": "08:37:10 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1023",
+          "category": "AI_AGENT",
+          "agentName": "Route Planning Agent",
+          "title": "Expressway Corridor Cleared",
+          "description": "Northbound shoulder isolated for emergency convoy. Traffic diverted at Palladam interchange.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1023-5",
+          "timestamp": "08:36:30 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1023",
+          "category": "AI_AGENT",
+          "agentName": "Resource Coordination Agent",
+          "title": "Heavy Extrication Dispatched",
+          "description": "Mobilized Rescue Squad R-05 with Jaws of Life and Foam Tender F-02 for diesel blanketing.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1023-4",
+          "timestamp": "08:35:55 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1023",
+          "category": "AI_AGENT",
+          "agentName": "Severity Assessment Agent",
+          "title": "Incident Priority Set to HIGH",
+          "description": "Severity index 84/100 due to multiple trapped passengers and combustible fuel spill on highway.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1023-3",
+          "timestamp": "08:35:20 AM",
+          "timeAgo": "3 min ago",
+          "incidentId": "INC-1023",
+          "category": "AI_AGENT",
+          "agentName": "Weather Intelligence Agent",
+          "title": "Hydroplaning Risk Alert",
+          "description": "Wet bitumen friction telemetry recorded at 0.28. Mandatory speed reduction alerts broadcast.",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1023-2",
+          "timestamp": "08:34:45 AM",
+          "timeAgo": "4 min ago",
+          "incidentId": "INC-1023",
+          "category": "AI_AGENT",
+          "agentName": "Evidence Verification Agent",
+          "title": "CCTV Crash Video Authenticated",
+          "description": "Automated vision analysis detected multi-vehicle chain impact with cabin compression.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1023-1",
+          "timestamp": "08:34:02 AM",
+          "timeAgo": "4 min ago",
+          "incidentId": "INC-1023",
+          "category": "CRISIS_ALERT",
+          "agentName": "Incident Analysis Agent",
+          "title": "Emergency SOS Ingested",
+          "description": "Crash notification from Highway Patrol CCTV and toll sensor telemetry on NH-544 km 22.4.",
+          "severity": "HIGH"
+        }
+      ]
+    },
+    "INC-1022": {
+      "incident": {
+        "id": "INC-1022",
+        "title": "Industrial Warehouse Fire",
+        "type": "Fire",
+        "location": "Erode",
+        "severity": "MEDIUM",
+        "status": "Resources Assigned",
+        "reportedTime": "08:27 AM",
+        "timeAgo": "15 min ago",
+        "affectedPeople": "30 evacuated (2 unaccounted)",
+        "urgency": "Medium",
+        "infrastructureImpact": "Medium",
+        "weatherCondition": "Moderate wind (18 km/h ESE)",
+        "evidenceSummary": "Industrial zone automated smoke detector sensors + thermal camera alerts registering 640°C core temperatures in Bay 4.",
+        "coordinates": { "x": 820, "y": 140 },
+        "isDemoPrimary": false
+      },
+      "agents": [
+        {
+          "id": "agent-1",
+          "name": "Incident Analysis Agent",
+          "shortRole": "NLP & Incident Extraction",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Detected: Class-B industrial chemical warehouse blaze in Erode SIPCOT Phase 2. Core area: 2,400 sq.m with solvent barrels.",
+          "technicalDetails": [
+            "Facility: SIPCOT Chemical Logistics Depot Bay 4 (11.3410° N, 77.7172° E)",
+            "Flammable materials inventory: 40 barrels industrial isopropyl alcohol & polyurethane solvents",
+            "Personnel: 30 workers safely evacuated; 2 night-shift supervisors unaccounted in records"
+          ],
+          "confidence": 94,
+          "runDurationMs": 980
+        },
+        {
+          "id": "agent-2",
+          "name": "Evidence Verification Agent",
+          "shortRole": "Multi-Modal Truth Verification",
+          "status": "verified",
+          "badgeText": "✓ Verified",
+          "summary": "Industrial IoT ionization sensors, FLIR thermal imaging, and supervisor radio verified. Zero false alarms.",
+          "technicalDetails": [
+            "Thermal camera FLIR #ER-09 recorded 640°C localized hotspot in Bay 4 racking",
+            "Automatic dry sprinkler system failure alarm logged at 08:26:40 AM",
+            "Atmospheric VOC gas sensors triggered peak readings of 850 ppm"
+          ],
+          "confidence": 98,
+          "runDurationMs": 1320
+        },
+        {
+          "id": "agent-3",
+          "name": "Weather Intelligence Agent",
+          "shortRole": "Meteorological Telemetry & Radar",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "East-southeast wind at 18 km/h. Smoke plume dispersion model predicts trajectory towards adjoining textile godowns.",
+          "technicalDetails": [
+            "Wind vector: 115° ESE at 5.0 m/s (18 km/h)",
+            "Plume rise index: 45 meters with toxic particulate concentration in downwind sector",
+            "Humidity: 62% | Ambient Temperature: 28°C | Rainfall probability: 10%"
+          ],
+          "confidence": 96,
+          "runDurationMs": 910
+        },
+        {
+          "id": "agent-4",
+          "name": "Severity Assessment Agent",
+          "shortRole": "Priority Classification Engine",
+          "status": "critical",
+          "badgeText": "✓ Medium Priority",
+          "summary": "Priority: MEDIUM (76/100). Chemical solvent combustion with toxic smoke plume, requiring immediate cooling of adjacent tanks.",
+          "technicalDetails": [
+            "Combustion risk score: 76/100 (Class B solvent fire with potential BLEVE hazard)",
+            "Toxic dispersion radius: 600m evacuation perimeter recommended",
+            "Containment rating: Currently restricted to Bay 4, exterior curtain wall holding"
+          ],
+          "confidence": 95,
+          "runDurationMs": 1180
+        },
+        {
+          "id": "agent-5",
+          "name": "Resource Coordination Agent",
+          "shortRole": "Fleet & Personnel Optimization",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: 2 Chemical Foam Pumper Trucks (F-01, F-04), 1 HAZMAT Breathing Apparatus Squad (H-03), 1 Burn Ambulance (A-06).",
+          "technicalDetails": [
+            "Foam Tender F-01 equipped with 6,000L chemical retardant dispatched from SIPCOT Station",
+            "HAZMAT Squad H-03 deployed with Level-A encapsulating suits & thermal search gear",
+            "Industrial water bowser WB-02 connected to perimeter fire hydrants #H-12"
+          ],
+          "confidence": 96,
+          "runDurationMs": 1260
+        },
+        {
+          "id": "agent-6",
+          "name": "Route Planning Agent",
+          "shortRole": "Dynamic Road Clearance & Routing",
+          "status": "ready",
+          "badgeText": "✓ Route Ready",
+          "summary": "Primary Route: Upwind approach via SIPCOT Main Avenue (Route A - 3.8 km, 9 min). Avoiding downwind smoke corridor.",
+          "technicalDetails": [
+            "Upwind navigational vector: Approaching from west at 270° ensures emergency crew safety",
+            "Downwind industrial access road closed due to heavy acrid smoke plume",
+            "Alternative Route B: Perundurai Link Arterial (5.9 km, 15 min)"
+          ],
+          "confidence": 94,
+          "runDurationMs": 1050
+        },
+        {
+          "id": "agent-7",
+          "name": "Hospital Recommendation Agent",
+          "shortRole": "Healthcare Triage & Capacity Engine",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: Erode Government Medical College Hospital (5.8 km). Specialized Burn & Chemical Inhalation Unit with 14 beds open.",
+          "technicalDetails": [
+            "Specialized hyperbaric oxygen & pulmonary toxicology resuscitation bay ready",
+            "Chemical burn decontamination showers pre-activated at triage pavilion",
+            "Secondary backup: Lotus Speciality Hospital Erode (7.2 km, 9 beds open)"
+          ],
+          "confidence": 97,
+          "runDurationMs": 990
+        }
+      ],
+      "responsePlan": {
+        "id": "PLAN-1022-CHARLIE",
+        "incidentId": "INC-1022",
+        "incidentTitle": "Industrial Warehouse Fire",
+        "incidentLocation": "Erode SIPCOT Industrial Complex",
+        "priority": "MEDIUM",
+        "generatedAt": "08:31 AM",
+        "actions": [
+          "Deploy Chemical Foam Tender F-01 to establish water-foam cooling curtain on solvent storage tanks",
+          "Deploy HAZMAT Squad H-03 with thermal scopes for rapid search and rescue of 2 missing night supervisors",
+          "Issue immediate 600-meter downwind shelter-in-place and evacuation advisory for adjoining textile mills",
+          "Establish upwind staging area at SIPCOT Administrative Plaza via cleared Route A",
+          "Alert Erode Government Medical College Hospital Burn Unit to prepare 6 chemical inhalation bays",
+          "Connect Water Bowser WB-02 to SIPCOT high-pressure industrial reservoir line for uninterrupted water supply"
+        ],
+        "justifications": [
+          {
+            "factor": "Chemical Fire Threat",
+            "agent": "Incident Analysis Agent",
+            "assessment": "Class-B flammable solvent inventory requires specialized foam suppression instead of water.",
+            "confidence": "94%"
+          },
+          {
+            "factor": "Thermal Core Validation",
+            "agent": "Evidence Verification Agent",
+            "assessment": "FLIR thermal imaging confirmed 640°C core hotspot threatening adjacent solvent tanks.",
+            "confidence": "98%"
+          },
+          {
+            "factor": "Plume Wind Modeling",
+            "agent": "Weather Intelligence Agent",
+            "assessment": "18 km/h ESE wind dictates strictly upwind staging and downwind industrial evacuation.",
+            "confidence": "96%"
+          },
+          {
+            "factor": "Specialized HAZMAT Fleet",
+            "agent": "Resource Coordination Agent",
+            "assessment": "Foam Tenders F-01, F-04 and HAZMAT Unit H-03 reachable within 10 minutes.",
+            "confidence": "96%"
+          },
+          {
+            "factor": "Upwind Route Navigation",
+            "agent": "Route Planning Agent",
+            "assessment": "Route A avoids the toxic smoke plume path completely, ensuring responder safety.",
+            "confidence": "94%"
+          },
+          {
+            "factor": "Toxicology & Burn Readiness",
+            "agent": "Hospital Recommendation Agent",
+            "assessment": "Erode GMCH equipped with decontamination showers and dedicated burn ICU beds.",
+            "confidence": "97%"
+          }
+        ],
+        "approvalStatus": "APPROVED"
+      },
+      "resources": [
+        {
+          "id": "res-1022-1",
+          "callsign": "F-01",
+          "name": "Industrial Chemical Foam Tender F-01",
+          "type": "Emergency Vehicle",
+          "distanceKm": 3.2,
+          "etaMinutes": 8,
+          "status": "Assigned",
+          "recommendation": "ASSIGN",
+          "personnelCount": 6,
+          "specialization": "6000L Foam Deluge & High-Expansion Chemical Blanketing"
+        },
+        {
+          "id": "res-1022-2",
+          "callsign": "F-04",
+          "name": "High-Pressure Water Bowser F-04",
+          "type": "Emergency Vehicle",
+          "distanceKm": 4.0,
+          "etaMinutes": 10,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 4,
+          "specialization": "Continuous Bulk Water Supply & Boundary Cooling"
+        },
+        {
+          "id": "res-1022-3",
+          "callsign": "H-03",
+          "name": "HAZMAT Breathing Apparatus Squad H-03",
+          "type": "Rescue Team",
+          "distanceKm": 3.9,
+          "etaMinutes": 9,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 8,
+          "specialization": "Level-A Enclosed Suits & Toxic Search & Extraction"
+        },
+        {
+          "id": "res-1022-4",
+          "callsign": "A-06",
+          "name": "Burn & Toxicology Ambulance A-06",
+          "type": "Ambulance",
+          "distanceKm": 4.6,
+          "etaMinutes": 12,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 3,
+          "specialization": "Chemical Burn Irrigation & Inhalation Oxygenation"
+        },
+        {
+          "id": "res-1022-5",
+          "callsign": "SQ-05",
+          "name": "Industrial Cordon Security Squad SQ-05",
+          "type": "Personnel Squad",
+          "distanceKm": 2.5,
+          "etaMinutes": 6,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 10,
+          "specialization": "600m Toxic Perimeter Lockdown & Factory Evacuation"
+        },
+        {
+          "id": "res-1022-6",
+          "callsign": "EV-08",
+          "name": "Thermal Drone Surveillance Unit EV-08",
+          "type": "Emergency Vehicle",
+          "distanceKm": 5.0,
+          "etaMinutes": 13,
+          "status": "Available",
+          "recommendation": "BACKUP",
+          "personnelCount": 3,
+          "specialization": "Aerial Thermal Hotspot Mapping & Plume Tracking"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rt-1022-1",
+          "name": "SIPCOT Main Upwind Avenue (Route A)",
+          "code": "ROUTE_A",
+          "type": "recommended",
+          "distanceKm": 3.8,
+          "etaMinutes": 9,
+          "roadCondition": "Four-lane industrial boulevard; zero smoke obstruction from western approach",
+          "status": "Operational (Upwind Priority Access)",
+          "hazardNote": "Eastern sector closed due to toxic VOC smoke plume dispersion",
+          "pathD": "M 220,440 C 340,380 500,280 660,220 C 740,190 800,160 840,140",
+          "isRecommended": true,
+          "clearanceLevel": "Heavy Foam Tenders & Fire Engines"
+        },
+        {
+          "id": "rt-1022-2",
+          "name": "Perundurai Link Arterial (Route B)",
+          "code": "ROUTE_B",
+          "type": "alternative",
+          "distanceKm": 5.9,
+          "etaMinutes": 15,
+          "roadCondition": "Secondary commercial road with moderate vehicle traffic",
+          "status": "Clear Standby Route",
+          "hazardNote": "Traffic bottlenecks near Perundurai market junction",
+          "pathD": "M 220,440 C 300,500 520,480 720,380 780,280 840,140",
+          "isRecommended": false,
+          "clearanceLevel": "Support Tankers & Ambulances"
+        }
+      ],
+      "hospitals": [
+        {
+          "id": "hosp-1022-1",
+          "name": "Erode Government Medical College Hospital",
+          "emergency": "Available",
+          "icu": "Available",
+          "capacityPercent": 74,
+          "distanceKm": 5.8,
+          "travelMinutes": 14,
+          "recommendation": "BEST MATCH",
+          "traumaLevel": "Specialized Burn & Inhalation Critical Care Unit",
+          "availableBeds": 14,
+          "totalBeds": 70,
+          "contact": "+91 424 225 8351",
+          "locationArea": "Perundurai Road, Erode"
+        },
+        {
+          "id": "hosp-1022-2",
+          "name": "Lotus Speciality & Emergency Hospital",
+          "emergency": "Available",
+          "icu": "Limited",
+          "capacityPercent": 82,
+          "distanceKm": 7.2,
+          "travelMinutes": 18,
+          "recommendation": "ALTERNATIVE",
+          "traumaLevel": "Acute Emergency Trauma Center",
+          "availableBeds": 9,
+          "totalBeds": 50,
+          "contact": "+91 424 228 2828",
+          "locationArea": "Poondurai Road, Erode"
+        }
+      ],
+      "activityLogs": [
+        {
+          "id": "act-1022-8",
+          "timestamp": "08:31:22 AM",
+          "timeAgo": "Just now",
+          "incidentId": "INC-1022",
+          "category": "AI_AGENT",
+          "agentName": "AI / API Orchestrator",
+          "title": "Industrial Fire Response Plan Compiled",
+          "description": "Plan #PLAN-1022-CHARLIE synthesized. Assigned Foam Tender F-01 & HAZMAT unit H-03.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1022-7",
+          "timestamp": "08:30:45 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1022",
+          "category": "AI_AGENT",
+          "agentName": "Hospital Recommendation Agent",
+          "title": "Burn Unit Pre-Notification",
+          "description": "Erode GMCH Burn ICU alerted. Decontamination showers and oxygen bays prepared.",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1022-6",
+          "timestamp": "08:30:10 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1022",
+          "category": "AI_AGENT",
+          "agentName": "Route Planning Agent",
+          "title": "Upwind Vector Verified",
+          "description": "Route A approved for entry. Downwind corridor closed due to hazardous particulate plume.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1022-5",
+          "timestamp": "08:29:30 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1022",
+          "category": "AI_AGENT",
+          "agentName": "Resource Coordination Agent",
+          "title": "Chemical Foam Fleet Mobilized",
+          "description": "Dispatched Foam Pumper F-01 and HAZMAT Squad H-03 for search and boundary cooling.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1022-4",
+          "timestamp": "08:28:50 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1022",
+          "category": "AI_AGENT",
+          "agentName": "Severity Assessment Agent",
+          "title": "Class B Industrial Fire Prioritized",
+          "description": "Severity index 76/100 calculated. 600m industrial evacuation cordon mandated.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1022-3",
+          "timestamp": "08:28:15 AM",
+          "timeAgo": "3 min ago",
+          "incidentId": "INC-1022",
+          "category": "AI_AGENT",
+          "agentName": "Weather Intelligence Agent",
+          "title": "Wind & Plume Trajectory Mapped",
+          "description": "18 km/h ESE wind dispersion model indicates smoke drift toward textile godowns.",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1022-2",
+          "timestamp": "08:27:40 AM",
+          "timeAgo": "4 min ago",
+          "incidentId": "INC-1022",
+          "category": "AI_AGENT",
+          "agentName": "Evidence Verification Agent",
+          "title": "FLIR Thermal Hotspot Confirmed",
+          "description": "Thermal camera feed verified 640°C core heat signature. Sprinkler failure validated.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1022-1",
+          "timestamp": "08:27:01 AM",
+          "timeAgo": "5 min ago",
+          "incidentId": "INC-1022",
+          "category": "CRISIS_ALERT",
+          "agentName": "Incident Analysis Agent",
+          "title": "Automated Industrial Fire Alarm",
+          "description": "IoT ionization smoke sensors and supervisor distress call triggered in Erode SIPCOT Depot.",
+          "severity": "HIGH"
+        }
+      ]
+    },
+    "INC-1021": {
+      "incident": {
+        "id": "INC-1021",
+        "title": "River Embankment Water Rise",
+        "type": "Flood",
+        "location": "Pollachi",
+        "severity": "HIGH",
+        "status": "Monitoring",
+        "reportedTime": "08:21 AM",
+        "timeAgo": "21 min ago",
+        "affectedPeople": "45 residents alert (12 homes at crest)",
+        "urgency": "High",
+        "infrastructureImpact": "Low",
+        "weatherCondition": "Continuous drizzle (Aliyar inflow 3,200 cusecs)",
+        "evidenceSummary": "Irrigation department ultrasonic water level sensor telemetry indicating river level 0.35m below safety embankment crest.",
+        "coordinates": { "x": 360, "y": 480 },
+        "isDemoPrimary": false
+      },
+      "agents": [
+        {
+          "id": "agent-1",
+          "name": "Incident Analysis Agent",
+          "shortRole": "NLP & Incident Extraction",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Detected: Aliyar River embankment water rise in Pollachi rural sector. 45 residents and 12 low-lying dwellings endangered by breach.",
+          "technicalDetails": [
+            "Location: Aliyar River Basin Sector 6 (10.6609° N, 77.0048° E)",
+            "Hydraulic stage: 92% capacity (water line only 0.35m from earthen levee crest)",
+            "Downstream risk: 12 agricultural homesteads directly in 20-minute breach inundation zone"
+          ],
+          "confidence": 96,
+          "runDurationMs": 1020
+        },
+        {
+          "id": "agent-2",
+          "name": "Evidence Verification Agent",
+          "shortRole": "Multi-Modal Truth Verification",
+          "status": "verified",
+          "badgeText": "✓ Verified",
+          "summary": "Ultrasonic gauge #PL-101 cross-validated with Aliyar Dam telemetry. Dam discharge rate verified at 3,200 cusecs.",
+          "technicalDetails": [
+            "Ultrasonic water sensor #PL-101 accuracy delta: < 1.2 cm variance across dual probes",
+            "Aliyar Reservoir spillway gate #3 & #4 open at 1.5m discharge height",
+            "Zero false alarm: Water rise rate confirmed at 8 cm/hr"
+          ],
+          "confidence": 99,
+          "runDurationMs": 1280
+        },
+        {
+          "id": "agent-3",
+          "name": "Weather Intelligence Agent",
+          "shortRole": "Meteorological Telemetry & Radar",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Continuous drizzle (14mm/hr) in Anamalai foothills catchment. Upstream runoff sustaining high river volume for next 3 hours.",
+          "technicalDetails": [
+            "Western Ghats catchment precipitation: 14mm/hr persistent drizzle",
+            "Upstream dam reservoir elevation: 1,048 ft (Full Reservoir Level 1,050 ft)",
+            "Soil saturation on earthen bund: 88% (soil shear strength diminishing)"
+          ],
+          "confidence": 95,
+          "runDurationMs": 920
+        },
+        {
+          "id": "agent-4",
+          "name": "Severity Assessment Agent",
+          "shortRole": "Priority Classification Engine",
+          "status": "critical",
+          "badgeText": "✓ High Priority",
+          "summary": "Priority: HIGH (81/100). Imminent earthen embankment breach threatening rural homesteads and agricultural infrastructure.",
+          "technicalDetails": [
+            "Embankment structural integrity index: 0.68 (requires preventive sandbag shoring)",
+            "Casualty prevention window: 45 minutes before projected crest spillover",
+            "Livestock and grain storage vulnerability: High"
+          ],
+          "confidence": 94,
+          "runDurationMs": 1150
+        },
+        {
+          "id": "agent-5",
+          "name": "Resource Coordination Agent",
+          "shortRole": "Fleet & Personnel Optimization",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: 1 Civil Defense Sandbagging Battalion (SQ-04), 1 Swift Water Raft Team (R-03), 1 Mobile Field Clinic (A-08).",
+          "technicalDetails": [
+            "Civil Defense Squad SQ-04 mobilizing with 2,000 woven geotextile sandbags",
+            "Inflatable motorized evacuation raft team R-03 staging at Aliyar canal intake",
+            "All-Terrain Logistics Truck EV-06 carrying portable dewatering pump generators"
+          ],
+          "confidence": 97,
+          "runDurationMs": 1310
+        },
+        {
+          "id": "agent-6",
+          "name": "Route Planning Agent",
+          "shortRole": "Dynamic Road Clearance & Routing",
+          "status": "ready",
+          "badgeText": "✓ Route Ready",
+          "summary": "Primary Route: Canal Ridge High Road (Route A - 4.6 km, 13 min). Lower riverbank road marked CLOSED to all traffic.",
+          "technicalDetails": [
+            "Canal Ridge Road is elevated 4.5m above floodplain with gravel reinforcement",
+            "Lower riverside tractor road closed due to river shoulder erosion at km 3.2",
+            "Alternative Route B: Old Pollachi-Udumalpet Highway (7.3 km, 19 min)"
+          ],
+          "confidence": 95,
+          "runDurationMs": 1080
+        },
+        {
+          "id": "agent-7",
+          "name": "Hospital Recommendation Agent",
+          "shortRole": "Healthcare Triage & Capacity Engine",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: Pollachi District Government Hospital (4.1 km). 22 available emergency beds, snakebite and hypothermia ready.",
+          "technicalDetails": [
+            "Rural trauma reception protocol ready with anti-venom & hypothermia warming units",
+            "Ambulance intake cleared via elevated eastern gate",
+            "Secondary facility: G. Kuppuswamy Naidu Outreach Center (8.3 km, 14 beds)"
+          ],
+          "confidence": 98,
+          "runDurationMs": 1010
+        }
+      ],
+      "responsePlan": {
+        "id": "PLAN-1021-DELTA",
+        "incidentId": "INC-1021",
+        "incidentTitle": "River Embankment Water Rise",
+        "incidentLocation": "Pollachi Aliyar Catchment",
+        "priority": "HIGH",
+        "generatedAt": "08:25 AM",
+        "actions": [
+          "Deploy Civil Defense Sandbagging Battalion SQ-04 with 2,000 geotextile bags to reinforce Sector 6 levee crest",
+          "Deploy Swift Water Raft Team R-03 to execute proactive evacuation of 12 vulnerable riverside homesteads",
+          "Coordinate with Public Works / Irrigation Engineers to regulate Aliyar dam sluice gates to balance runoff",
+          "Close low-lying riverside tractor trail and route all evacuation convoy transit strictly via Canal Ridge High Road",
+          "Pre-alert Pollachi District Government Hospital triage pavilion to prepare for flood evacuees and rural elderly",
+          "Dispatch Mobile Clinic Ambulance A-08 with clean drinking water purification sachets and first-aid kits"
+        ],
+        "justifications": [
+          {
+            "factor": "Hydrologic Embankment Threat",
+            "agent": "Incident Analysis Agent",
+            "assessment": "Water level at 92% capacity gives a 45-minute window before potential crest breach.",
+            "confidence": "96%"
+          },
+          {
+            "factor": "Dam Telemetry Verification",
+            "agent": "Evidence Verification Agent",
+            "assessment": "Ultrasonic water level probes and dam discharge records cross-validated authentic.",
+            "confidence": "99%"
+          },
+          {
+            "factor": "Catchment Inflow Forecast",
+            "agent": "Weather Intelligence Agent",
+            "assessment": "Continuous 14mm/hr drizzle upstream ensures prolonged high water volume.",
+            "confidence": "95%"
+          },
+          {
+            "factor": "Preventive Shoring Allocation",
+            "agent": "Resource Coordination Agent",
+            "assessment": "Civil Defense Sandbagging Battalion SQ-04 ready to stabilize levee crest before breach.",
+            "confidence": "97%"
+          },
+          {
+            "factor": "High Ridge Evacuation Path",
+            "agent": "Route Planning Agent",
+            "assessment": "Canal Ridge Road is elevated and safe from shoulder erosion.",
+            "confidence": "95%"
+          },
+          {
+            "factor": "Local Healthcare Intake",
+            "agent": "Hospital Recommendation Agent",
+            "assessment": "Pollachi District Hospital has 22 open beds and rapid rural triage capacity.",
+            "confidence": "98%"
+          }
+        ],
+        "approvalStatus": "PENDING_APPROVAL"
+      },
+      "resources": [
+        {
+          "id": "res-1021-1",
+          "callsign": "SQ-04",
+          "name": "Civil Defense Sandbagging Battalion SQ-04",
+          "type": "Personnel Squad",
+          "distanceKm": 3.4,
+          "etaMinutes": 10,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 16,
+          "specialization": "Levee Shoring, Sandbag Wall Construction & Dewatering"
+        },
+        {
+          "id": "res-1021-2",
+          "callsign": "R-03",
+          "name": "Aliyar Swift Water Rescue Raft Team R-03",
+          "type": "Rescue Team",
+          "distanceKm": 4.1,
+          "etaMinutes": 12,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 8,
+          "specialization": "Inflatable Motorized Rafts & River Evacuation"
+        },
+        {
+          "id": "res-1021-3",
+          "callsign": "A-08",
+          "name": "Mobile Field Clinic & Ambulance A-08",
+          "type": "Ambulance",
+          "distanceKm": 3.7,
+          "etaMinutes": 11,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 4,
+          "specialization": "Rural Triage, Anti-Venom & Waterborne Prophylaxis"
+        },
+        {
+          "id": "res-1021-4",
+          "callsign": "EV-06",
+          "name": "All-Terrain Logistic Transport EV-06",
+          "type": "Emergency Vehicle",
+          "distanceKm": 4.8,
+          "etaMinutes": 14,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 3,
+          "specialization": "Rough Terrain Heavy Sandbag Transport & Pumps"
+        },
+        {
+          "id": "res-1021-5",
+          "callsign": "R-09",
+          "name": "Community Evacuation Volunteer Unit R-09",
+          "type": "Personnel Squad",
+          "distanceKm": 2.2,
+          "etaMinutes": 6,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 12,
+          "specialization": "Village Early Warning & Elderly Assisted Relocation"
+        },
+        {
+          "id": "res-1021-6",
+          "callsign": "SQ-07",
+          "name": "Disaster Telecommunications Relay SQ-07",
+          "type": "Emergency Vehicle",
+          "distanceKm": 6.2,
+          "etaMinutes": 17,
+          "status": "Available",
+          "recommendation": "BACKUP",
+          "personnelCount": 3,
+          "specialization": "Satellite VHF/UHF Mesh Radio Network Relay"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rt-1021-1",
+          "name": "Canal Ridge High Road (Route A)",
+          "code": "ROUTE_A",
+          "type": "recommended",
+          "distanceKm": 4.6,
+          "etaMinutes": 13,
+          "roadCondition": "Elevated gravel canal bund road 4.5m above river baseline; dry and firm",
+          "status": "Operational (Safe Heavy Convoy Route)",
+          "hazardNote": "Lower tractor river trail closed due to embankment erosion",
+          "pathD": "M 180,480 C 240,430 320,380 440,360 C 540,340 640,330 720,320",
+          "isRecommended": true,
+          "clearanceLevel": "All Transport & Sandbag Trucks"
+        },
+        {
+          "id": "rt-1021-2",
+          "name": "Old Pollachi-Udumalpet Highway (Route B)",
+          "code": "ROUTE_B",
+          "type": "alternative",
+          "distanceKm": 7.3,
+          "etaMinutes": 19,
+          "roadCondition": "Paved state highway with moderate agricultural tractor traffic",
+          "status": "Clear Standby Arterial",
+          "hazardNote": "Culvert crossing at km 5.1 has 10cm shallow water wash over pavement",
+          "pathD": "M 180,480 C 220,530 400,550 580,480 C 660,420 700,370 720,320",
+          "isRecommended": false,
+          "clearanceLevel": "High Clearance Trucks Only"
+        }
+      ],
+      "hospitals": [
+        {
+          "id": "hosp-1021-1",
+          "name": "Pollachi District Government Hospital",
+          "emergency": "Available",
+          "icu": "Available",
+          "capacityPercent": 68,
+          "distanceKm": 4.1,
+          "travelMinutes": 11,
+          "recommendation": "BEST MATCH",
+          "traumaLevel": "District Secondary Care & Disaster Influx Ward",
+          "availableBeds": 22,
+          "totalBeds": 75,
+          "contact": "+91 4259 223 344",
+          "locationArea": "Station Road, Pollachi Central"
+        },
+        {
+          "id": "hosp-1021-2",
+          "name": "G. Kuppuswamy Naidu Outreach Medical Center",
+          "emergency": "Available",
+          "icu": "Limited",
+          "capacityPercent": 79,
+          "distanceKm": 8.3,
+          "travelMinutes": 21,
+          "recommendation": "ALTERNATIVE",
+          "traumaLevel": "Rural Health & Triage Pavilion",
+          "availableBeds": 14,
+          "totalBeds": 55,
+          "contact": "+91 4259 231 999",
+          "locationArea": "Aliyar Road, Pollachi"
+        }
+      ],
+      "activityLogs": [
+        {
+          "id": "act-1021-8",
+          "timestamp": "08:25:30 AM",
+          "timeAgo": "Just now",
+          "incidentId": "INC-1021",
+          "category": "AI_AGENT",
+          "agentName": "AI / API Orchestrator",
+          "title": "Embankment Defense Plan Generated",
+          "description": "Synthesized 7 agent assessments into Plan #PLAN-1021-DELTA. Awaiting Human Coordinator signoff.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1021-7",
+          "timestamp": "08:24:55 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1021",
+          "category": "AI_AGENT",
+          "agentName": "Hospital Recommendation Agent",
+          "title": "Pollachi District Hospital Alerted",
+          "description": "Selected Pollachi District Hospital (4.1 km, 22 beds available, snakebite and hypothermia prep).",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1021-6",
+          "timestamp": "08:24:20 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1021",
+          "category": "AI_AGENT",
+          "agentName": "Route Planning Agent",
+          "title": "Canal Ridge High Road Approved",
+          "description": "Route A (4.6 km, 13 min) cleared. Lower riverside trail closed due to shoulder saturation.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1021-5",
+          "timestamp": "08:23:45 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1021",
+          "category": "AI_AGENT",
+          "agentName": "Resource Coordination Agent",
+          "title": "Shoring & Rescue Units Mobilized",
+          "description": "Mobilized Sandbagging Battalion SQ-04 and Swift Water Raft Team R-03 for preemptive deployment.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1021-4",
+          "timestamp": "08:23:05 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1021",
+          "category": "AI_AGENT",
+          "agentName": "Severity Assessment Agent",
+          "title": "Priority Set to HIGH",
+          "description": "Severity index 81/100. 12 riverside dwellings endangered by potential levee overtopping.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1021-3",
+          "timestamp": "08:22:30 AM",
+          "timeAgo": "3 min ago",
+          "incidentId": "INC-1021",
+          "category": "AI_AGENT",
+          "agentName": "Weather Intelligence Agent",
+          "title": "Upstream Catchment Rain Alert",
+          "description": "14mm/hr persistent drizzle in Anamalai hills sustaining 3,200 cusecs reservoir outflow.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1021-2",
+          "timestamp": "08:21:50 AM",
+          "timeAgo": "4 min ago",
+          "incidentId": "INC-1021",
+          "category": "AI_AGENT",
+          "agentName": "Evidence Verification Agent",
+          "title": "Ultrasonic Gauge Telemetry Authenticated",
+          "description": "Gauge #PL-101 verified water line 0.35m below levee crest. Dam spillway gate status confirmed.",
+          "severity": "INFO"
+        },
+        {
+          "id": "act-1021-1",
+          "timestamp": "08:21:10 AM",
+          "timeAgo": "4 min ago",
+          "incidentId": "INC-1021",
+          "category": "CRISIS_ALERT",
+          "agentName": "Incident Analysis Agent",
+          "title": "Irrigation Telemetry Alert Ingested",
+          "description": "Ultrasonic water level sensor triggered high stage warning on Aliyar River embankment.",
+          "severity": "HIGH"
+        }
+      ]
+    },
+    "INC-1025": {
+      "incident": {
+        "id": "INC-1025",
+        "title": "Severe Multi-Vehicle Pileup on Highway",
+        "type": "Road Accident",
+        "location": "Coimbatore Highway (km 14)",
+        "severity": "CRITICAL",
+        "status": "Awaiting Approval",
+        "reportedTime": "08:48 AM",
+        "timeAgo": "Just now",
+        "affectedPeople": "22 casualties & trapped vehicles",
+        "urgency": "Critical",
+        "infrastructureImpact": "High",
+        "weatherCondition": "Torrential downpour & poor visibility",
+        "evidenceSummary": "Highway patrol dashcam & emergency toll plaza sensor SOS confirming heavy multi-truck pileup.",
+        "coordinates": { "x": 610, "y": 190 },
+        "isDemoPrimary": false
+      },
+      "agents": [
+        {
+          "id": "agent-1",
+          "name": "Incident Analysis Agent",
+          "shortRole": "NLP & Incident Extraction",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Detected: Major multi-vehicle collision on NH-544 (km 14). 22 casualties with multiple trapped motorists.",
+          "technicalDetails": [
+            "Extracted Location: NH-544 Coimbatore Bypass km 14 (11.0250° N, 77.0120° E)",
+            "Casualty classification: 6 Red (Immediate), 10 Yellow (Delayed), 6 Green",
+            "Arterial transit completely severed in both directions"
+          ],
+          "confidence": 98,
+          "runDurationMs": 1050
+        },
+        {
+          "id": "agent-2",
+          "name": "Evidence Verification Agent",
+          "shortRole": "Multi-Modal Truth Verification",
+          "status": "verified",
+          "badgeText": "✓ Verified",
+          "summary": "Highway CCTV and smart toll emergency beacons confirm major chain impact with overturned fuel tanker.",
+          "technicalDetails": [
+            "High-speed deceleration telemetry confirmed across 8 vehicles",
+            "Emergency dashcam footage processed: Structural cabin deformation confirmed",
+            "Cross-referenced with Toll Plaza crash alert beacon #TP-14"
+          ],
+          "confidence": 99,
+          "runDurationMs": 1350
+        },
+        {
+          "id": "agent-3",
+          "name": "Weather Intelligence Agent",
+          "shortRole": "Meteorological Telemetry & Radar",
+          "status": "completed",
+          "badgeText": "✓ Completed",
+          "summary": "Torrential downpour and severe visibility drop (< 800m). Road surface hydroplaning hazard critical.",
+          "technicalDetails": [
+            "Heavy rain band 36mm/hr over bypass sector",
+            "Road surface water pooling depth: 40mm",
+            "Wind gusts up to 42 km/h creating driving hazards"
+          ],
+          "confidence": 96,
+          "runDurationMs": 950
+        },
+        {
+          "id": "agent-4",
+          "name": "Severity Assessment Agent",
+          "shortRole": "Priority Classification Engine",
+          "status": "critical",
+          "badgeText": "✓ Critical",
+          "summary": "Priority: CRITICAL (95/100). Massive casualty volume + fuel tanker involvement on primary corridor.",
+          "technicalDetails": [
+            "Casualty severity index: 95/100",
+            "Dynamic prioritization: Surpasses INC-1022 containment status",
+            "Interstate supply chain disruption factor: Extreme"
+          ],
+          "confidence": 98,
+          "runDurationMs": 1200
+        },
+        {
+          "id": "agent-5",
+          "name": "Resource Coordination Agent",
+          "shortRole": "Fleet & Personnel Optimization",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: Reassign Rescue Team R-08 from Erode; dispatch ALS Ambulances A-04 & A-07.",
+          "technicalDetails": [
+            "Dynamic reassignment executed: R-08 re-routed to INC-1025",
+            "ALS Trauma Ambulances A-04 and A-07 mobilized",
+            "Heavy hydraulic extrication vehicle dispatched from Coimbatore central depot"
+          ],
+          "confidence": 97,
+          "runDurationMs": 1400
+        },
+        {
+          "id": "agent-6",
+          "name": "Route Planning Agent",
+          "shortRole": "Dynamic Road Clearance & Routing",
+          "status": "ready",
+          "badgeText": "✓ Route Ready",
+          "summary": "Primary Route: Western Arterial Flyover (5.2 km, 13 min). Diverting civilian traffic via Neelambur loop.",
+          "technicalDetails": [
+            "Exclusive blue-light corridor established along Western Flyover",
+            "Neelambur cloverleaf diversion activated for all freight traffic",
+            "Estimated transit time for first responders: 13 mins"
+          ],
+          "confidence": 95,
+          "runDurationMs": 1100
+        },
+        {
+          "id": "agent-7",
+          "name": "Hospital Recommendation Agent",
+          "shortRole": "Healthcare Triage & Capacity Engine",
+          "status": "ready",
+          "badgeText": "✓ Recommendation Ready",
+          "summary": "Recommended: Kovai Medical Center (KMCH) Trauma Hub (6.1 km). Trauma emergency team on Code Red.",
+          "technicalDetails": [
+            "Level 1 Multi-Trauma capability with dual surgical suites on standby",
+            "ICU capacity: 18 beds open | Emergency blood units reserved",
+            "Secondary: Government Medical College Hospital (7.8 km)"
+          ],
+          "confidence": 99,
+          "runDurationMs": 1050
+        }
+      ],
+      "responsePlan": {
+        "id": "PLAN-1025-ECHO",
+        "incidentId": "INC-1025",
+        "incidentTitle": "Severe Multi-Vehicle Pileup on Highway",
+        "incidentLocation": "Coimbatore Highway (km 14)",
+        "priority": "CRITICAL",
+        "generatedAt": "08:50 AM",
+        "actions": [
+          "Reassign Urban Search & Rescue Team R-08 from contained INC-1022 to high-casualty INC-1025",
+          "Dispatch 3 Paramedic ALS Ambulances (A-04, A-07, A-09) with mass casualty triage kits",
+          "Deploy Highway Patrol SQ-03 to execute full highway closure and activate Neelambur bypass loop",
+          "Deploy Fire Foam Unit F-02 to secure overturned fuel tanker and prevent fire outbreak",
+          "Pre-alert Kovai Medical Center Trauma Hub for incoming Code Red polytrauma casualties",
+          "Establish on-scene casualty collection point (CCP) at Highway Toll Plaza 14 administration building"
+        ],
+        "justifications": [
+          {
+            "factor": "Mass Casualty Urgency",
+            "agent": "Incident Analysis Agent",
+            "assessment": "22 casualties with 6 critical trapped motorists demands immediate heavy extrication.",
+            "confidence": "98%"
+          },
+          {
+            "factor": "Multi-Modal Proof",
+            "agent": "Evidence Verification Agent",
+            "assessment": "CCTV and toll sensor telemetry verified massive pileup with fuel leak.",
+            "confidence": "99%"
+          },
+          {
+            "factor": "Hydroplaning Hazards",
+            "agent": "Weather Intelligence Agent",
+            "assessment": "Heavy downpour and wet asphalt requires absolute highway closure to avert secondary crashes.",
+            "confidence": "96%"
+          },
+          {
+            "factor": "Dynamic Resource Priority",
+            "agent": "Resource Coordination Agent",
+            "assessment": "Adaptive reallocation of R-08 from lower-risk fire site optimizes life-saving impact.",
+            "confidence": "97%"
+          },
+          {
+            "factor": "Dedicated Blue Corridor",
+            "agent": "Route Planning Agent",
+            "assessment": "Western Arterial Flyover ensures rapid transit without civilian traffic obstruction.",
+            "confidence": "95%"
+          },
+          {
+            "factor": "Level 1 Surgical Prep",
+            "agent": "Hospital Recommendation Agent",
+            "assessment": "Kovai Medical Center has dual operating theaters ready for immediate trauma triage.",
+            "confidence": "99%"
+          }
+        ],
+        "approvalStatus": "PENDING_APPROVAL"
+      },
+      "resources": [
+        {
+          "id": "res-1025-1",
+          "callsign": "R-08",
+          "name": "Urban Search & Rescue Team R-08 (Reassigned)",
+          "type": "Rescue Team",
+          "distanceKm": 5.4,
+          "etaMinutes": 13,
+          "status": "Assigned",
+          "recommendation": "ASSIGN",
+          "personnelCount": 10,
+          "specialization": "Heavy Vehicle Extrication & Jaws of Life Operations"
+        },
+        {
+          "id": "res-1025-2",
+          "callsign": "A-04",
+          "name": "Paramedic ALS Ambulance A-04",
+          "type": "Ambulance",
+          "distanceKm": 4.2,
+          "etaMinutes": 10,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 3,
+          "specialization": "Advanced Life Support & Rapid Resuscitation"
+        },
+        {
+          "id": "res-1025-3",
+          "callsign": "A-07",
+          "name": "Critical Polytrauma Ambulance A-07",
+          "type": "Ambulance",
+          "distanceKm": 6.1,
+          "etaMinutes": 14,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 3,
+          "specialization": "Multi-Casualty Resuscitation & Blood Packs"
+        },
+        {
+          "id": "res-1025-4",
+          "callsign": "F-02",
+          "name": "Highway Fire & Foam Tender F-02",
+          "type": "Emergency Vehicle",
+          "distanceKm": 4.8,
+          "etaMinutes": 12,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 5,
+          "specialization": "Tanker Fuel Spill Blanketing & Fire Suppression"
+        },
+        {
+          "id": "res-1025-5",
+          "callsign": "SQ-03",
+          "name": "Highway Patrol Interceptor Squad SQ-03",
+          "type": "Personnel Squad",
+          "distanceKm": 3.1,
+          "etaMinutes": 8,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 8,
+          "specialization": "Highway Cordon, Toll Gate Diversion & Perimeter Control"
+        },
+        {
+          "id": "res-1025-6",
+          "callsign": "EV-03",
+          "name": "Heavy Winch Recovery Vehicle EV-03",
+          "type": "Emergency Vehicle",
+          "distanceKm": 6.8,
+          "etaMinutes": 16,
+          "status": "Available",
+          "recommendation": "ASSIGN",
+          "personnelCount": 4,
+          "specialization": "Commercial Truck Towing & Highway Clearance"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rt-1025-1",
+          "name": "Western Arterial Elevated Corridor (Route A)",
+          "code": "ROUTE_A",
+          "type": "recommended",
+          "distanceKm": 5.2,
+          "etaMinutes": 13,
+          "roadCondition": "High flyover deck cleared for exclusive blue-light emergency convoy",
+          "status": "Operational (Priority Emergency Corridor)",
+          "hazardNote": "Crash site at km 14 completely closed to civilian transit",
+          "pathD": "M 200,420 C 310,360 460,280 590,220 C 680,180 740,160 820,150",
+          "isRecommended": true,
+          "clearanceLevel": "All Responders & Heavy Rescue"
+        },
+        {
+          "id": "rt-1025-2",
+          "name": "Neelambur Peripheral Ring Loop (Route B)",
+          "code": "ROUTE_B",
+          "type": "alternative",
+          "distanceKm": 7.8,
+          "etaMinutes": 19,
+          "roadCondition": "Four-lane detour loop handling diverted civilian traffic flow",
+          "status": "Civilian Detour Active",
+          "hazardNote": "Heavy traffic queuing near Neelambur toll gates",
+          "pathD": "M 200,420 C 260,500 480,510 680,430 C 760,360 800,260 820,150",
+          "isRecommended": false,
+          "clearanceLevel": "Diverted Civilian Transit"
+        }
+      ],
+      "hospitals": [
+        {
+          "id": "hosp-1025-1",
+          "name": "Kovai Medical Center & Hospital (KMCH) Trauma Hub",
+          "emergency": "Available",
+          "icu": "Available",
+          "capacityPercent": 75,
+          "distanceKm": 6.1,
+          "travelMinutes": 15,
+          "recommendation": "BEST MATCH",
+          "traumaLevel": "Level 1 Comprehensive Trauma Surgery Center",
+          "availableBeds": 24,
+          "totalBeds": 100,
+          "contact": "+91 422 432 3800",
+          "locationArea": "Avinashi Road, Coimbatore"
+        },
+        {
+          "id": "hosp-1025-2",
+          "name": "Government Medical College Hospital Coimbatore",
+          "emergency": "Available",
+          "icu": "Limited",
+          "capacityPercent": 89,
+          "distanceKm": 7.8,
+          "travelMinutes": 20,
+          "recommendation": "ALTERNATIVE",
+          "traumaLevel": "Tertiary Care Government Emergency Hospital",
+          "availableBeds": 10,
+          "totalBeds": 120,
+          "contact": "+91 422 230 1393",
+          "locationArea": "Trichy Road, Town Hall"
+        }
+      ],
+      "activityLogs": [
+        {
+          "id": "act-1025-8",
+          "timestamp": "08:50:12 AM",
+          "timeAgo": "Just now",
+          "incidentId": "INC-1025",
+          "category": "AI_AGENT",
+          "agentName": "AI / API Orchestrator",
+          "title": "Emergency Pileup Response Plan ECHO Generated",
+          "description": "7 agents compiled mass casualty protocol. Reallocated Rescue Unit R-08 to high-priority crash.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1025-7",
+          "timestamp": "08:49:40 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1025",
+          "category": "AI_AGENT",
+          "agentName": "Hospital Recommendation Agent",
+          "title": "Code Red Hospital Influx Broadcast",
+          "description": "KMCH Trauma Hub alerted. Operating theaters prepped for incoming polytrauma patients.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1025-6",
+          "timestamp": "08:49:15 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1025",
+          "category": "AI_AGENT",
+          "agentName": "Route Planning Agent",
+          "title": "Blue-Light Flyover Corridor Activated",
+          "description": "Route A isolated for emergency convoy. Civilian traffic diverted via Neelambur loop.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1025-5",
+          "timestamp": "08:48:50 AM",
+          "timeAgo": "1 min ago",
+          "incidentId": "INC-1025",
+          "category": "CRISIS_ALERT",
+          "agentName": "Resource Coordination Agent",
+          "title": "DYNAMIC REASSIGNMENT: R-08 Reallocated",
+          "description": "Rescue Unit R-08 transferred from INC-1022 to INC-1025 due to immediate life-threat priorities.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1025-4",
+          "timestamp": "08:48:30 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1025",
+          "category": "AI_AGENT",
+          "agentName": "Severity Assessment Agent",
+          "title": "CRITICAL Classification (Score: 95/100)",
+          "description": "22 casualties and hazardous fuel spill on interstate freight corridor requires highest tier mobilization.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1025-3",
+          "timestamp": "08:48:15 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1025",
+          "category": "AI_AGENT",
+          "agentName": "Weather Intelligence Agent",
+          "title": "Torrential Downpour Alert",
+          "description": "Rainfall intensity 36mm/hr with dangerous standing water pooling on highway lanes.",
+          "severity": "HIGH"
+        },
+        {
+          "id": "act-1025-2",
+          "timestamp": "08:48:05 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1025",
+          "category": "AI_AGENT",
+          "agentName": "Evidence Verification Agent",
+          "title": "Toll Sensor SOS & Video Confirmed",
+          "description": "Automated vision authenticated multi-truck chain collision with cabin collapse.",
+          "severity": "CRITICAL"
+        },
+        {
+          "id": "act-1025-1",
+          "timestamp": "08:48:00 AM",
+          "timeAgo": "2 min ago",
+          "incidentId": "INC-1025",
+          "category": "CRISIS_ALERT",
+          "agentName": "Incident Analysis Agent",
+          "title": "Mass Casualty SOS Ingestion",
+          "description": "Emergency alert received from Toll Plaza 14: major multi-vehicle crash on NH-544 km 14.",
+          "severity": "CRITICAL"
+        }
+      ]
+    }
+  }
+}

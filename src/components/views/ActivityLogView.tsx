@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Cpu, Search } from 'lucide-react';
 import { useCrisis } from '../../context/CrisisContext';
+import { CrisisOptionSelector } from '../common/CrisisOptionSelector';
 
 export const ActivityLogView: React.FC = () => {
-  const { activityLogs } = useCrisis();
+  const { activityLogs, selectedIncident } = useCrisis();
   const [filterCategory, setFilterCategory] = useState<'ALL' | 'AI_AGENT' | 'HUMAN_APPROVAL' | 'CRISIS_ALERT'>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -18,6 +19,11 @@ export const ActivityLogView: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* CRISIS SELECTION OPTIONS */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl">
+        <CrisisOptionSelector />
+      </div>
+
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl">
         <div>
@@ -33,7 +39,7 @@ export const ActivityLogView: React.FC = () => {
             System Activity Log
           </h2>
           <p className="text-xs text-slate-400 mt-1">
-            Chronological audit of autonomous multi-agent deliberations, emergency escalations, and human coordinator actions.
+            Chronological audit of autonomous multi-agent deliberations for <strong className="text-cyan-400">{selectedIncident.id} ({selectedIncident.title})</strong> and human coordinator actions.
           </p>
         </div>
 
